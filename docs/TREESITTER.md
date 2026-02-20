@@ -46,7 +46,7 @@ This config comes pre-configured with treesitter parsers for common languages in
 #### **Recommended way**
 
 If you haven't already, create a
-[personal scaffold](https://github.com/PayPal-Braintree/neovim-dotfiles-personal.scaffold)
+[personal scaffold](https://github.com/braintreeps/neovim-dotfiles-personal.scaffold)
 and add a spec in there with the languages that you want to add, as well as any
 other configuration
 ```lua

@@ -5,13 +5,13 @@ Welcome to the Braintree Neovim configuration! These dotfiles incorporate many o
 ## 🔍 Main differences
 
 - 💤[`lazy.nvim`][lazy.nvim] for managing plugins, and lazy-loading them.
-- 🔏 `Lockfile` for plugins to ensure compatibility.
+- 🔏 `Lockfile` for plugin and tools to ensure stability.
 - 🆕 Use modern, maintained Neovim-variants of traditional Vim plugins.
 - 💻 Leverage advanced tooling, such as [LSPs](./docs/LSP_GUIDE.md), [Treesitter](./docs/TREESITTER.md) and many more things!
 
 ## 🤩 Getting started
 
-Neovim is already installed by default on new cpairs! Check out our [GETTING_STARTED](./docs/GETTING_STARTED.md) guide for your initial tour!
+Check out our [GETTING_STARTED](./docs/GETTING_STARTED.md) guide for your initial tour!
 
 To confirm you're ready to get started, try launching neovim with the `nvim` command and pressing the `<Leader>` key (`\` by default).
 You should see a small floating window appear in the bottom-right corner of the screen. If you don't see that window pop up, then you'll need to follow the **Installation Guide** below.
@@ -68,7 +68,7 @@ Use the arrow keys or `j`/`k` to navigate the TUI, and `<Enter>` to show/hide ve
 > [!CAUTION]
 > The methods below are **not recommended for most users** as they can introduce instability. Plugin and tool versions are carefully tested together in each dotfiles release. Manual updates may cause compatibility issues or unexpected behavior.
 
-If you need to manually update plugins or tools (e.g., for testing or contributing updates to the shared dotfiles repo):
+If you need to manually update plugins or tools (e.g., for testing or contributing updates to this shared dotfiles repo):
 
 - **`:Lazy`** - Opens the plugin manager. From here you can update individual plugins, but be aware this may put your config out of sync with the tested lockfile.
 - **`:Mason`** (or `<Leader>cm`) - Opens the Mason tool manager for LSP servers, formatters, and linters. Updating tools here may cause version mismatches.
@@ -77,10 +77,10 @@ For most users, stick to the updater TUI (`<Leader>e`) which ensures all plugins
 
 ### GitHub Copilot
 
-See [this Confluence](https://paypal.atlassian.net/wiki/spaces/~701219270873f820e4a768dc67670670c499d/pages/2246970746/Getting+started+with+neovim+and+Copilot+at+Braintree) for detailed setup instructions.
-
 #### Authenticate
 `:Copilot auth` or `\al`
+
+Refer to internal documentation for detailed copilot setup instructions.
 
 #### Tab completion
 To cycle between tab-completed suggestions, use `C-n` and `C-p` (Vim shorthand for Control n and Control p).
@@ -96,7 +96,7 @@ mv ~/.config/nvim{,.bak}
 - Clone the dotfiles
 
 ```sh
-git clone git@github.com:PayPal-Braintree/neovim-dotfiles.git ~/.config/nvim
+git clone https://github.com/braintreeps/neovim-dotfiles.git ~/.config/nvim
 ```
 
 - Start Neovim!
@@ -106,7 +106,7 @@ nvim
 ```
 
 > [!TIP]
-> It's recommended to run `:Lazy health` after installation. This will load all plugins, and check if everything is working correctly.
+> If you're running into issues, try running `:Lazy health` after installation. This will point you to any critical issues related to startup.
 
 ### 👥 Running alongside existing Neovim config
 
@@ -115,7 +115,7 @@ If you have a current Neovim configuration that you use and want to test this on
 1. Clone the repo to a different directory (e.g. `~/.config/btnvim`):
 
 ```sh
-git clone https://github.com/PayPal-Braintree/neovim-dotfiles ~/.config/btnvim
+git clone https://github.com/braintreeps/neovim-dotfiles.git ~/.config/btnvim
 ```
 
 2. Tell Neovim to use your custom folder for dotfiles:
@@ -133,12 +133,12 @@ This leverages [Neovim's ability to use different configurations based on XDG en
 
 ## 🤝 Contributing
 
-- [GitHub issues](https://github.com/PayPal-Braintree/neovim-dotfiles/issues)
+- [GitHub issues](https://github.com/braintreeps/neovim-dotfiles/issues)
     - Please create for any unexpected behavior, missing behavior, desired improvements, etc. This will help ensure that we can successfully "upgrade" our [vim_dotfiles][vim_dotfiles] to Neovim.
 - Pull requests are encouraged!
 
 [vim_dotfiles]: https://github.com/braintreeps/vim_dotfiles
 [lazy.nvim]: https://github.com/folke/lazy.nvim
-[neovim-dotfiles-personal.scaffold]: https://github.com/PayPal-Braintree/neovim-dotfiles-personal.scaffold
+[neovim-dotfiles-personal.scaffold]: https://github.com/braintreeps/neovim-dotfiles-personal.scaffold
 [which-key.nvim]: https://github.com/folke/which-key.nvim
 [telescope.nvim]: https://github.com/nvim-telescope/telescope.nvim
