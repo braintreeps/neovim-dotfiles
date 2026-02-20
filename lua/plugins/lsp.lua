@@ -78,6 +78,7 @@ return {
                 },
                 gopls = {
                     -- mason = "gopls" (same as server name, so omitted)
+                    cmd = { "gopls", "-remote=auto" },
                     settings = {
                         gopls = {
                             analyses = {

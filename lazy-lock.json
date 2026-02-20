@@ -96,7 +96,7 @@
   "vim-elixir": { "branch": "master", "commit": "6dff29176eb35e025bc94b262bf6d4e517e11f7d" },
   "vim-fireplace": { "branch": "master", "commit": "5e66509599de92550762cf2681338fc4cd1e71cf" },
   "vim-fugitive": { "branch": "master", "commit": "61b51c09b7c9ce04e821f6cf76ea4f6f903e3cf4" },
-  "vim-github-url": { "branch": "master", "commit": "fb805c07a652b3ef3c8fecebe46ac16526132848" },
+  "vim-github-url": { "branch": "main", "commit": "fb805c07a652b3ef3c8fecebe46ac16526132848" },
   "vim-go": { "branch": "master", "commit": "fc429c8e2c70c7964065a7e9631cca6da46a8f15" },
   "vim-gradle": { "branch": "master", "commit": "508629fa2a3be1b2052e4e553593f60d12dfc090" },
   "vim-graphql": { "branch": "master", "commit": "0eef7d76750aa80507a3df60dabb4c66b6fbc70c" },
