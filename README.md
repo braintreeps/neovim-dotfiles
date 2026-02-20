@@ -33,11 +33,47 @@ In neovim, we have an awesome picker TUI powered by the plugin [`telescope.nvim`
 > If you just searched for something in a telescope picker and would like to pull up the same results again, "resume" your search with `\sr`
 
 > [!TIP]
-> When fuzzy finding files, it's useful to be able to scope your search to a specific directory. You can do this by using the `<C-t>` keymap from inside a telescope picker. This will open up a new picker to find the directory you want to scope to, and will then resume your prior fuzzy find from there
+> When fuzzy finding files, it's useful to be able to scope your search to a specific directory. You can do this by using the `<C-e>` keymap from inside a telescope picker. This will open up a new picker to find the directory you want to scope to, and will then resume your prior fuzzy find from there
 
 ### ✨ Personalization
 
 While these dotfiles aim to be a complete solution and provide a "lingua franca" for Braintree developers, one of the coolest advantages of Neovim is its ease of customization! If you want to change anything about how these base dotfiles behave, or try out new plugins to optimize your personal workflows, head on over to the [`neovim-dotfiles-personal.scaffold`][neovim-dotfiles-personal.scaffold] repo to see how to easily integrate your customizations!
+
+### 🔄 Updating Your Dotfiles
+
+These dotfiles include a built-in updater TUI that makes it easy to keep your config up to date and switch between versions.
+
+#### Opening the Updater
+
+Press **`<Leader>e`** to open the updater TUI, or run the command `:UpdaterOpen`.
+
+#### Checking Your Current Version
+
+The Updater TUI will display your current version of the dotfiles.
+
+#### Using the Updater TUI
+
+The updater TUI allows you to:
+- **View available versions** - See all released versions of the dotfiles, both older and newer
+- **Inspect release details** - Open each version to see concise details in the TUI or copy the github url to your clipboard with `y` to see the full changelog in the browser
+- **Switch versions** - Select a different version to install, switch to it with `s`
+
+Use the arrow keys or `j`/`k` to navigate the TUI, and `<Enter>` to show/hide versioned release details. `q` to close the TUI, and `r` to refresh release details from GitHub.
+
+> [!IMPORTANT]
+> After switching to a different version, you **must relaunch Neovim** for the changes to take full effect. The version switch updates the underlying files, but Neovim needs to restart to reload the updated configuration.
+
+#### Advanced: Manual Plugin and Tool Updates
+
+> [!CAUTION]
+> The methods below are **not recommended for most users** as they can introduce instability. Plugin and tool versions are carefully tested together in each dotfiles release. Manual updates may cause compatibility issues or unexpected behavior.
+
+If you need to manually update plugins or tools (e.g., for testing or contributing updates to the shared dotfiles repo):
+
+- **`:Lazy`** - Opens the plugin manager. From here you can update individual plugins, but be aware this may put your config out of sync with the tested lockfile.
+- **`:Mason`** (or `<Leader>cm`) - Opens the Mason tool manager for LSP servers, formatters, and linters. Updating tools here may cause version mismatches.
+
+For most users, stick to the updater TUI (`<Leader>e`) which ensures all plugins and tools are updated together in a tested, stable configuration.
 
 ### GitHub Copilot
 
