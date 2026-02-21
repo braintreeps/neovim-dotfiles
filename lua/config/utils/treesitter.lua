@@ -138,10 +138,7 @@ end
 
 ---@param cb fun(ok:boolean, err?:string)
 function M.ensure_treesitter_cli(cb)
-    if vim.fn.executable("tree-sitter") == 1 then
-        return cb(true)
-    else
-        return cb(false)
+return cb(vim.fn.executable("tree-sitter") == 1)
     end
 end
 
