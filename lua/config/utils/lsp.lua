@@ -1,66 +1,12 @@
+local Utils = require("config.utils")
+
 local M = {}
 
 -- Tracks what filetypes we've completed on-demand LSP setup for
 local processed_filetypes = {}
 
-local function install_mason_tools(tools)
-    local mr = require("mason-registry")
-    mr.refresh(function()
-        for _, tool in ipairs(tools) do
-            local ok, p = pcall(mr.get_package, tool)
-            if ok and not p:is_installed() and not p:is_installing() then
-                p:install()
-            end
-        end
-    end)
-end
-
-local function install_mason_servers(servers, lsp_opts)
-    local mr = require("mason-registry")
-
-    mr.refresh(function()
-        for _, server in ipairs(servers) do
-            -- Apply server config before enabling, merging with capabilities
-            local server_config = lsp_opts.servers[server] or {}
-            if lsp_opts.capabilities then
-                server_config = vim.tbl_deep_extend("force", { capabilities = lsp_opts.capabilities }, server_config)
-            end
-
-            vim.schedule(function()
-                vim.lsp.config(server, server_config)
-            end)
-
-            -- Check if this server should be installed via a mason package
-            -- mason = false means not installed via mason
-            -- mason = nil means use server name as package name
-            -- otherwise use the value as the package name
-            local mason_pkg = server_config.mason
-            if mason_pkg ~= false then
-                local pkg_name = mason_pkg or server
-                local ok, p = pcall(mr.get_package, pkg_name)
-                if ok then
-                    if not p:is_installed() and not p:is_installing() then
-                        p:install()
-                    end
-                else
-                    vim.schedule(function()
-                        vim.notify(
-                            string.format("Mason package '%s' not found for server '%s'", pkg_name, server),
-                            vim.log.levels.ERROR
-                        )
-                    end)
-                end
-            end
-
-            -- Enable the LSP server for this buffer
-            vim.schedule(function()
-                pcall(vim.lsp.enable, server)
-            end)
-        end
-    end)
-end
-
--- gems is a table mapping gem_name -> lsp_server_name
+---@param gems table<string, string> gem_name -> lsp_server_name
+---@param lsp_opts table
 local function install_gems(gems, lsp_opts)
     local gem_install = require("gem_install")
 
@@ -103,12 +49,12 @@ function M.ensure_for_filetype(ft, lsp_opts)
     vim.defer_fn(function()
         -- Install mason tools
         if config.tools and #config.tools > 0 then
-            install_mason_tools(config.tools)
+            Utils.mason.install_tools(config.tools)
         end
 
         -- Install mason LSP servers
         if config.servers then
-            install_mason_servers(config.servers, lsp_opts)
+            Utils.mason.install_servers(config.servers, lsp_opts)
         end
 
         -- Install gems via gem_install.nvim (gems is a map of gem_name -> lsp_server)
