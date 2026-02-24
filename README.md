@@ -55,7 +55,7 @@ The Updater TUI will display your current version of the dotfiles.
 
 The updater TUI allows you to:
 - **View available versions** - See all released versions of the dotfiles, both older and newer
-- **Inspect release details** - Open each version to see concise details in the TUI or copy the github url to your clipboard with `y` to see the full changelog in the browser
+- **Inspect release details** - Open each version to see concise details in the TUI or copy the GitHub url to your clipboard with `y` to see the full changelog in the browser
 - **Switch versions** - Select a different version to install, switch to it with `s`
 
 Use the arrow keys or `j`/`k` to navigate the TUI, and `<Enter>` to show/hide versioned release details. `q` to close the TUI, and `r` to refresh release details from GitHub.
