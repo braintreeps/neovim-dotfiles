@@ -36,6 +36,9 @@ end
 
 require("lazy").setup({
     spec = lazy_spec,
+    checker = {
+        enabled = false, -- Explicitly disable auto-update checking
+    },
     change_detection = {
         notify = false,
     },
