@@ -1,5 +1,6 @@
 local M = {}
 
+---@param tools string[]
 function M.install_tools(tools)
     local mr = require("mason-registry")
     mr.refresh(function()
@@ -12,6 +13,8 @@ function M.install_tools(tools)
     end)
 end
 
+---@param servers string[]
+---@param lsp_opts table
 function M.install_servers(servers, lsp_opts)
     local mr = require("mason-registry")
 

@@ -5,7 +5,8 @@ local M = {}
 -- Tracks what filetypes we've completed on-demand LSP setup for
 local processed_filetypes = {}
 
--- gems is a table mapping gem_name -> lsp_server_name
+---@param gems table<string, string> gem_name -> lsp_server_name
+---@param lsp_opts table
 local function install_gems(gems, lsp_opts)
     local gem_install = require("gem_install")
 
