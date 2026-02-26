@@ -43,6 +43,15 @@ return {
             { "<Leader>rf", "<cmd>wa<CR> <cmd>TestNearest<CR>", desc = "Run focused" },
             { "<Leader>rl", "<cmd>wa<CR> <cmd>TestLast<CR>", desc = "Run last test again" },
         },
+        init = function()
+            vim.api.nvim_create_autocmd("BufEnter", {
+                pattern = "*.java",
+                callback = function()
+                    local test_cmd = vim.fn.expand("%:p"):match("/src/(%w+Test)/") or "test"
+                    vim.g["test#java#gradletest#test_cmd"] = test_cmd
+                end,
+            })
+        end,
     },
     { "kshenoy/vim-signature", event = LazyFileEvents }, -- Used to add/remove/go-to marks
     { "kana/vim-textobj-user", lazy = true }, -- used to create custom text objects; TODO mark for deletion
