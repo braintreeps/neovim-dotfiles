@@ -444,6 +444,7 @@ return {
                     "sorbet/rbi/annotations/",
                     "sorbet/rbi/dsl/",
                     "sorbet/rbi/gems/",
+                    "%.class$",
                 },
                 sorting_strategy = "ascending",
                 layout_config = {
