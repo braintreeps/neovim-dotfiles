@@ -24,7 +24,7 @@ return {
             log_level = vim.log.levels.INFO,
             format_on_save = function(bufnr)
                 local ft = vim.bo[bufnr].filetype
-                if ft == "go" then
+                if ft == "go" or ft == "terraform" or ft == "hcl" then
                     return { timeout_ms = 3000, lsp_fallback = false }
                 end
                 return false
@@ -33,10 +33,17 @@ return {
                 sql = { "sqlfluff" },
                 lua = { "stylua" },
                 go = { "goimports", "gofumpt" },
+                terraform = { "terraform" },
+                hcl = { "terraform" },
             },
             formatters = {
                 sqlfluff = {
                     args = { "fix", "--force", "-" },
+                },
+                terraform = {
+                    command = "terraform",
+                    args = { "fmt", "-" },
+                    stdin = true,
                 },
             },
         },
