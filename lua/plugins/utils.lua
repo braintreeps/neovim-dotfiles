@@ -174,17 +174,17 @@ return {
         "cosmicbuffalo/updater.nvim",
         event = "VimEnter", -- Needs to be loaded early so that it can check for updates on startup
         opts = {
+            versioned_releases_only = true,
             keymap = {
                 open = "<leader>e",
             },
             check_updates_on_startup = { enabled = false }, -- disable update checks by default
             periodic_check = {
                 enabled = false, -- disable update checks by default
-                frequency_minutes = 120,
             },
             excluded_filetypes = { "gitcommit", "gitrebase" },
         },
-        cmd = { "UpdaterOpen", "UpdaterCheck", "UpdaterStartChecking", "UpdaterStopChecking" },
+        cmd = { "UpdaterOpen", "UpdaterCheck", "DotfilesVersion" },
         keys = {
             { "<leader>e", "<Cmd>UpdaterOpen<CR>", desc = "Open Updater" },
         },
