@@ -2,6 +2,39 @@
 local Utils = require("config.utils")
 
 local git_root_cache = {}
+local _no_ignore = false
+
+local file_pickers = {
+    ["Find Files"] = "find_files",
+    ["Git Files"] = "git_files",
+    ["Live Grep"] = "live_grep",
+    ["Grep String"] = "grep_string",
+}
+
+local function toggle_no_ignore(prompt_bufnr)
+    local action_state = require("telescope.actions.state")
+    local picker = action_state.get_current_picker(prompt_bufnr)
+    local base_title = picker.prompt_title:gsub(" %(no_ignore%)$", "")
+
+    local builtin_name = file_pickers[base_title]
+    if not builtin_name then
+        vim.notify("no_ignore is not applicable to this picker", vim.log.levels.WARN)
+        return
+    end
+
+    _no_ignore = not _no_ignore
+
+    local title = base_title
+    if _no_ignore then
+        title = title .. " (no_ignore)"
+    end
+
+    require("telescope.builtin")[builtin_name]({
+        default_text = picker:_get_prompt(),
+        no_ignore = _no_ignore,
+        prompt_title = title,
+    })
+end
 
 -- Find files from project root (git root if available, otherwise current directory)
 local function find_files_from_project_git_root()
@@ -492,6 +525,14 @@ return {
                             end,
                         },
                         preview_width = 0.5,
+                    },
+                },
+                mappings = {
+                    i = {
+                        ["<C-I>"] = toggle_no_ignore,
+                    },
+                    n = {
+                        ["<C-I>"] = toggle_no_ignore,
                     },
                 },
             },
