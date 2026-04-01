@@ -37,7 +37,7 @@ return {
                 additional_vim_regex_highlighting = { "ruby" }, -- TODO: confirm still needed
                 disable = function(_lang, buffer)
                     local max_filesize = treesitter_highlight_max_file_size * 1024 -- convert actual kilobytes
-                    local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buffer))
+                    local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buffer))
 
                     if ok and stats and stats.size > max_filesize then
                         return true
