@@ -5,7 +5,8 @@ Welcome to the Braintree Neovim configuration!
 These dotfiles incorporate many of the same features that exist in our [vim_dotfiles][vim_dotfiles] repository, plus many new features that are only available in Neovim! **We are currently supporting Neovim >= 0.11**.
 
 <img width="1215" height="1148" alt="image" src="https://github.com/user-attachments/assets/fc1dd4e9-4724-4546-9c01-ae0a69efaa4f" />
-<img width="1094" height="975" alt="image" src="https://github.com/user-attachments/assets/4ee3fe31-8fa4-4716-92ad-69252b502443" />
+<img width="1215" height="1148" alt="image" src="https://github.com/user-attachments/assets/a8c83bf4-a6be-4102-9497-52eb24ae2c04" />
+
 
 ## 🔍 Main differences
 
