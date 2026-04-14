@@ -16,7 +16,7 @@ return {
     },
     {
         "saghen/blink.cmp",
-        version = "*",
+        version = "1.*",
         opts_extend = {
             "sources.completion.enabled_providers",
             "sources.compat",

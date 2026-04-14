@@ -1,3 +1,4 @@
+vim.env.PATH = "/home/admin/.local/share/mise/shims:" .. vim.env.PATH
 local Utils = require("config.utils")
 -- set up options and any personal options
 require("config.options")
