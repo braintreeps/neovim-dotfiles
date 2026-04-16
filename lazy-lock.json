@@ -11,7 +11,7 @@
   "blink-cmp-copilot": { "branch": "main", "commit": "439cff78780c033aa23cf061d7315314b347e3c1" },
   "blink-cmp-tmux": { "branch": "main", "commit": "4586c705b6f80b536c34a61ed0d3cd4d7f08322d" },
   "blink-emoji.nvim": { "branch": "master", "commit": "066013e4c98a9318408ee3f1ca2dbcb6fa3e4c06" },
-  "blink.cmp": { "branch": "main", "commit": "456d38d1cd3743926f329204c2340f3e7840aad6" },
+  "blink.cmp": { "branch": "main", "commit": "78336bc89ee5365633bcf754d93df01678b5c08f" },
   "catppuccin": { "branch": "main", "commit": "beaf41a30c26fd7d6c386d383155cbd65dd554cd" },
   "cheatsheet_generator.nvim": { "branch": "main", "commit": "d966cb40d5d087e061ace54bcddcc1a4551d15a4" },
   "conform.nvim": { "branch": "master", "commit": "c2526f1cde528a66e086ab1668e996d162c75f4f" },
