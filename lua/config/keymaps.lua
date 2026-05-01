@@ -1,13 +1,12 @@
 local map = vim.keymap.set
 -- Normal mode mapping for removing highlight from text search
 map("n", "<Leader>nh", "<cmd>nohls<cr>", { desc = "Removes text searching highlight" })
+
 -- clear search highlights with esc
 map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and Clear hlsearch" })
+
 -- open lazy
 map("n", "<leader>l", "<cmd>Lazy<cr>", { desc = "Lazy" })
-
--- Normal and visual mode mapping for commenting lines
-map({ "n", "v" }, "<Leader>cc", "<cmd>normal gcc<cr>", { desc = "Comments the current or highlighted lines" })
 
 -- Remove trailing whitespace
 map("n", "<Leader>cw", "<cmd>%s/\\s\\+$//e<cr>", { desc = "Remove trailing whitespace" })
