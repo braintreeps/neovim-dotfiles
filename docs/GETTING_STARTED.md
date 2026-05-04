@@ -191,6 +191,14 @@ Once you're comfortable with the basics:
 
 ## 🤯 Advanced Features
 
+### GitHub Copilot
+
+#### Authenticate
+`:Copilot auth` or `\al`
+
+#### Tab completion
+To cycle between tab-completed suggestions, use `C-n` and `C-p` (Vim shorthand for Control n and Control p).
+
 ### Dealing with LSPs
 - **`<Leader>cm`** - Open Mason (add support for new languages)
 - **`<Leader>ci`** - Show LSP information for current file

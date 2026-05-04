@@ -9,7 +9,7 @@ vim.opt.autoindent = true
 vim.opt.smartindent = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
-vim.opt.autoread = false
+vim.opt.autoread = true
 vim.opt.mouse = ""
 vim.opt.undofile = true
 vim.g.disable_fancy_winbar = true
@@ -21,3 +21,6 @@ vim.g.clipboard = "osc52"
 vim.opt.signcolumn = "yes"
 
 vim.g.ruby_indent_assignment_style = "variable"
+
+-- stop scrolling when less than 5 lines would be visible
+vim.opt.scrolloff = 5 -- same as vim_dotfiles

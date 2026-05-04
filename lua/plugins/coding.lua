@@ -16,7 +16,7 @@ return {
     },
     {
         "saghen/blink.cmp",
-        version = "*",
+        version = "1.*",
         opts_extend = {
             "sources.completion.enabled_providers",
             "sources.compat",
@@ -49,6 +49,9 @@ return {
                 --
                 -- adjusts spacing to ensure icons are aligned
                 nerd_font_variant = "mono",
+            },
+            fuzzy = {
+                implementation = "prefer_rust",
             },
             completion = {
                 accept = {

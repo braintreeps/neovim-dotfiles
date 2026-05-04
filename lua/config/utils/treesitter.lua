@@ -131,7 +131,7 @@ function M.build(cb)
                 "Run `:checkhealth nvim-treesitter` for more information.",
             })
             vim.list_extend(lines, err and { "", err } or {})
-            vim.notify(lines, vim.log.level.ERROR, { title = "Treesitter" })
+            vim.notify(table.concat(lines, "\n"), vim.log.levels.ERROR, { title = "Treesitter" })
         end
     end)
 end
