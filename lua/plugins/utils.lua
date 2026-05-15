@@ -1,22 +1,10 @@
 local Utils = require("config.utils")
 local LazyFileEvents = Utils.lazy.LazyFileEvents
 
-local open_lazygit_with_tracked_window = function()
-    Utils.set_tracked_window()
-    Snacks.lazygit()
-end
-
-local remote_q = 'nvim --server "$NVIM" --remote-send "q"'
-local remote_open_with_tracked_window =
-    'nvim --server "$NVIM" --remote-send "<C-\\><C-N>:lua require(\\"config.utils\\").open_in_tracked_window(\\"{{filename}}\\")<CR>"'
-local remote_goto_line = 'nvim --server "$NVIM" --remote-send ":{{line}}<CR>"'
-local remote_q_open = remote_q .. " && " .. remote_open_with_tracked_window
-local lazygit_edit_command = '[ -z "$NVIM" ] && (nvim -- {{filename}}) || (' .. remote_q_open .. ")"
-local lazygit_edit_at_line_command = '[ -z "$NVIM" ] && (nvim +{{line}} -- {{filename}}) || ('
-    .. remote_q_open
-    .. " && "
-    .. remote_goto_line
-    .. ")"
+local lazygit_edit_command =
+    '[ -z "$NVIM" ] && (nvim -- {{filename}}) || (nvim --server "$NVIM" --remote-send "<C-\\><C-N>:q<CR>" && nvim --server "$NVIM" --remote-send ":e {{filename}}<CR>")'
+local lazygit_edit_at_line_command =
+    '[ -z "$NVIM" ] && (nvim +{{line}} -- {{filename}}) || (nvim --server "$NVIM" --remote-send "<C-\\><C-N>:q<CR>" && nvim --server "$NVIM" --remote-send ":e {{filename}}<CR>:{{line}}<CR>")'
 
 return {
     {
@@ -110,7 +98,7 @@ return {
             {
                 "<leader>gg",
                 function()
-                    open_lazygit_with_tracked_window()
+                    Snacks.lazygit()
                 end,
                 desc = "Lazygit",
             },
