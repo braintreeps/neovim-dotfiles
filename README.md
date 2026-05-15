@@ -40,6 +40,43 @@ head on over to the
 [`neovim-dotfiles-personal.scaffold`][neovim-dotfiles-personal.scaffold] repo
 to see how to easily integrate your customizations!
 
+### 🔄 Updating Your Dotfiles
+
+These dotfiles include a built-in updater TUI that makes it easy to keep your config up to date and switch between versions.
+
+#### Opening the Updater
+
+Press **`<Leader>e`** to open the updater TUI, or run the command `:UpdaterOpen`.
+
+#### Checking Your Current Version
+
+The Updater TUI will display your current version of the dotfiles.
+
+#### Using the Updater TUI
+
+The updater TUI allows you to:
+- **Update to the latest version** - Easily update to the latest version with `U`
+- **View available versions** - See all released versions of the dotfiles, both older and newer
+- **Inspect release details** - Open each version to see concise details in the TUI or copy the GitHub url to your clipboard with `y` to see the full changelog in the browser
+- **Switch versions** - Select a different version to install, switch to it with `s`
+
+Use the arrow keys or `j`/`k` to navigate the TUI, and `<Enter>` to show/hide versioned release details. `q` to close the TUI, and `r` to refresh release details from GitHub.
+
+> [!IMPORTANT]
+> After switching to a different version, you **must relaunch Neovim** for the changes to take full effect. The version switch updates the underlying files, but Neovim needs to restart to reload the updated configuration.
+
+#### Advanced: Manual Plugin and Tool Updates
+
+> [!CAUTION]
+> The methods below are **not recommended for most users** as they can introduce instability. Plugin and tool versions are carefully tested together in each dotfiles release. Manual updates may cause compatibility issues or unexpected behavior.
+
+If you need to manually update plugins or tools (e.g., for testing or contributing updates to the shared dotfiles repo):
+
+- **`:Lazy`** - Opens the plugin manager. From here you can update individual plugins, but be aware this may put your config out of sync with the tested lockfile.
+- **`:Mason`** (or `<Leader>cm`) - Opens the Mason tool manager for LSP servers, formatters, and linters. Updating tools here may cause version mismatches.
+
+For most users, stick to the updater TUI (`<Leader>e`) which ensures all plugins and tools are updated together in a tested, stable configuration.
+
 ## ⚙️ Installation Guide
 
 - Back up your current Neovim files (if any):
