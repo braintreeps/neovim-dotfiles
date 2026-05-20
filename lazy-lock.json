@@ -1,7 +1,6 @@
 {
   "Align": { "branch": "master", "commit": "787662fe90cd057942bc5b682fd70c87e1a9dd77" },
   "CamelCaseMotion": { "branch": "master", "commit": "e69b0024f8f63db10c5d0df26d4920760755d454" },
-  "Comment.nvim": { "branch": "master", "commit": "e30b7f2008e52442154b66f7c519bfd2f1e32acb" },
   "CopilotChat.nvim": { "branch": "main", "commit": "07dcc188bc488b2dafa9324bd42088640bee3d19" },
   "Vim-Jinja2-Syntax": { "branch": "master", "commit": "2c17843b074b06a835f88587e1023ceff7e2c7d1" },
   "VimClojure": { "branch": "master", "commit": "2a17c249571395a7f45523d38cac6a9326ecf8f1" },
