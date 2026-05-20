@@ -40,31 +40,6 @@ function M.toggle_option(option, values)
     end
 end
 
-function M.set_tracked_window()
-    local winid = vim.api.nvim_get_current_win()
-    local file = io.open("/tmp/nvim_tracked_window", "w")
-    if file then
-        file:write(tostring(winid))
-        file:close()
-    end
-end
-
-function M.open_in_tracked_window(filename)
-    local file = io.open("/tmp/nvim_tracked_window", "r")
-    if not file then
-        vim.cmd("edit " .. vim.fn.fnameescape(filename))
-        return
-    end
-
-    local winid = tonumber(file:read("*l"))
-    file:close()
-
-    if winid and vim.api.nvim_win_is_valid(winid) then
-        vim.api.nvim_set_current_win(winid)
-    end
-    vim.cmd("edit " .. vim.fn.fnameescape(filename))
-end
-
 function M.relative_path()
     local current_dir = vim.fn.expand("%:p:h")
     vim.fn.chdir(current_dir)
