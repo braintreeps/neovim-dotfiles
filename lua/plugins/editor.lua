@@ -51,6 +51,18 @@ return {
             { "<leader>gd", "<cmd>Gitsigns diffthis<CR>", desc = "[g]it [d]iff this" },
             { "<leader>gD", '<cmd>Gitsigns diffthis "~"<CR>', desc = "[g]it [D]iff this ~" },
             { "<leader>gi", "<cmd>Gitsigns preview_hunk_inline<CR>", desc = "[g]it [i]nspect hunk" },
+            {
+                "<leader>gq",
+                function()
+                    local gs = require("gitsigns")
+                    gs.change_base("HEAD", true, function()
+                        gs.setqflist("all", { open = true }, function()
+                            gs.reset_base(true)
+                        end)
+                    end)
+                end,
+                desc = "[g]it [q]uickfix all hunks",
+            },
         },
     },
     {
