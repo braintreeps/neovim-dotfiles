@@ -51,6 +51,19 @@ return {
             { "<leader>gd", "<cmd>Gitsigns diffthis<CR>", desc = "[g]it [d]iff this" },
             { "<leader>gD", '<cmd>Gitsigns diffthis "~"<CR>', desc = "[g]it [D]iff this ~" },
             { "<leader>gi", "<cmd>Gitsigns preview_hunk_inline<CR>", desc = "[g]it [i]nspect hunk" },
+            {
+                "<leader>gq",
+                function()
+                    require("gitsigns").change_base("HEAD", true)
+                    vim.schedule(function()
+                        require("gitsigns").setqflist("all", { open = true })
+                        vim.schedule(function()
+                            require("gitsigns").reset_base(true)
+                        end)
+                    end)
+                end,
+                desc = "[g]it [q]uickfix all hunks",
+            },
         },
     },
     {
