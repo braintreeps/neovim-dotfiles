@@ -186,6 +186,7 @@ return {
                         "shfmt",
                         "goimports",
                         "gofumpt",
+                        "ruff",
                     },
                     silent = true,
                 },
