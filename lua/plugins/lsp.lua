@@ -125,6 +125,10 @@ return {
                 terraform = {
                     servers = { "terraformls" },
                 },
+                python = {
+                    servers = { "basedpyright" },
+                    tools = { "ruff" },
+                },
                 ruby = {
                     -- Ruby LSP servers are installed via gems, not mason
                     -- Map gem name to the LSP server it provides
