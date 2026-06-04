@@ -93,6 +93,15 @@ return {
                 ruby_lsp = { mason = false },
                 rubocop = { mason = false },
                 bashls = { mason = "bash-language-server" },
+                terraformls = {
+                    mason = "terraform-ls",
+                    -- terraform-ls returns huge semanticTokens responses that
+                    -- lock nvim's main thread applying highlights. Treesitter
+                    -- handles syntax; disable semantic tokens for this server.
+                    on_init = function(client)
+                        client.server_capabilities.semanticTokensProvider = nil
+                    end,
+                },
             },
             -- Map filetypes to their required tooling
             -- Each entry can have: servers (LSP), tools (formatters/linters), gems (via gem_install)
@@ -112,6 +121,9 @@ return {
                 bash = {
                     servers = { "bashls" },
                     tools = { "shfmt" },
+                },
+                terraform = {
+                    servers = { "terraformls" },
                 },
                 ruby = {
                     -- Ruby LSP servers are installed via gems, not mason
