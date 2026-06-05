@@ -58,11 +58,14 @@ return {
                 float = { border = "rounded", source = "if_many" },
                 underline = { severity = vim.diagnostic.severity.ERROR },
             },
-            -- Language server specific configuration goes here
-            -- the mason attribute informs the on-demand LSP setup
-            -- of what the mason package name for a given LSP is
-            -- (optional, will default to lsp server name key)
-            servers = {
+            -- Contract between the two tables below:
+            -- - `server_defs` keys are LSP server names (what `vim.lsp.enable` accepts).
+            -- - `filetype_tooling[*].servers` entries and `gems` values MUST be keys in `server_defs`.
+            -- - Mason package names live ONLY in `server_defs[name].mason`. They never appear in `filetype_tooling`.
+            --
+            -- `server_defs`: per-server config. The `mason` attribute overrides the Mason
+            -- package name when it differs from the LSP server name (defaults to the key).
+            server_defs = {
                 lua_ls = {
                     mason = "lua-language-server",
                     settings = {
@@ -102,10 +105,14 @@ return {
                         client.server_capabilities.semanticTokensProvider = nil
                     end,
                 },
+                yamlls = { mason = "yaml-language-server" },
             },
-            -- Map filetypes to their required tooling
-            -- Each entry can have: servers (LSP), tools (formatters/linters), gems (via gem_install)
-            filetype_config = {
+            -- `filetype_tooling`: per-filetype workflow tooling installed on demand
+            -- when a buffer of that filetype is opened. Each entry can have:
+            --   servers — LSP server names (must exist as keys in `server_defs`)
+            --   tools   — Mason-managed formatters/linters
+            --   gems    — gem_name -> LSP server name (server must exist in `server_defs`)
+            filetype_tooling = {
                 lua = {
                     servers = { "lua_ls" },
                     tools = { "stylua" },
@@ -137,6 +144,9 @@ return {
                         ["rubocop"] = "rubocop",
                     },
                 },
+                yaml = {
+                    servers = { "yamlls" },
+                },
             },
         },
         config = vim.schedule_wrap(function(_, opts)
@@ -155,8 +165,8 @@ return {
 
             -- Add FileType autocmd for lazy tooling installation
             local lsp_opts = {
-                servers = opts.servers,
-                filetype_config = opts.filetype_config,
+                server_defs = opts.server_defs,
+                filetype_tooling = opts.filetype_tooling,
                 capabilities = capabilities,
             }
             vim.api.nvim_create_autocmd("FileType", {
