@@ -183,7 +183,7 @@ return {
                         local extra = vim.tbl_get(opts, "highlight", "additional_vim_regex_highlighting")
                         if type(extra) == "table" and vim.tbl_contains(extra, lang) then
                             local ok, stat = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(ev.buf))
-                            if not ok or not stat or stat.size <= legacy_syntax_max_file_size * 1024 then
+                            if ok and stat and stat.size <= legacy_syntax_max_file_size * 1024 then
                                 vim.bo[ev.buf].syntax = "ON"
                             end
                         end
