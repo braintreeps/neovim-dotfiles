@@ -4,6 +4,9 @@ local Utils = require("config.utils")
 -- TODO expose this as a configurable value
 local treesitter_highlight_max_file_size = 150 -- Kilobytes
 
+-- Legacy syntax (needed for ruby indent's synID) is slow on big files; cap it here.
+local legacy_syntax_max_file_size = 50 -- Kilobytes
+
 return {
     {
         "nvim-treesitter/nvim-treesitter",
@@ -34,8 +37,13 @@ return {
         opts = {
             highlight = {
                 enable = true,
-                additional_vim_regex_highlighting = { "ruby" }, -- TODO: confirm still needed
-                disable = function(_lang, buffer)
+                -- Ruby's = indent reads synID, which needs the legacy engine (re-enabled in the autocmd).
+                additional_vim_regex_highlighting = { "ruby" },
+                disable = function(lang, buffer)
+                    -- Keep ruby on treesitter at all sizes; its legacy fallback is far slower.
+                    if lang == "ruby" then
+                        return false
+                    end
                     local max_filesize = treesitter_highlight_max_file_size * 1024 -- convert actual kilobytes
                     local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buffer))
 
@@ -163,14 +171,22 @@ return {
                     ---@param query string
                     local function enabled(feat, query)
                         local f = opts[feat] or {}
-                        return f.enable ~= false
-                            and not (type(f.disable) == "table" and vim.tbl_contains(f.disable, lang))
-                            and Utils.treesitter.have(ft, query)
+                        local disabled = (type(f.disable) == "table" and vim.tbl_contains(f.disable, lang))
+                            or (type(f.disable) == "function" and f.disable(lang, ev.buf))
+                        return f.enable ~= false and not disabled and Utils.treesitter.have(ft, query)
                     end
 
                     -- highlighting
                     if enabled("highlight", "highlights") then
                         pcall(vim.treesitter.start)
+                        -- Turn legacy syntax back on for langs that need synID (ruby indent).
+                        local extra = vim.tbl_get(opts, "highlight", "additional_vim_regex_highlighting")
+                        if type(extra) == "table" and vim.tbl_contains(extra, lang) then
+                            local ok, stat = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(ev.buf))
+                            if ok and stat and stat.size <= legacy_syntax_max_file_size * 1024 then
+                                vim.bo[ev.buf].syntax = "ON"
+                            end
+                        end
                     end
                 end,
             })

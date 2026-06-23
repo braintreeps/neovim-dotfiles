@@ -55,6 +55,7 @@ require("lazy").setup({
     },
 })
 
+require("config.usercmds")
 -- Load auto commands
 require("config.autocmds")
 

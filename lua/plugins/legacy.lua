@@ -127,7 +127,7 @@ return {
 
     -- Language-specific plugins
     { "chase/vim-ansible-yaml", ft = { "ansible" } },
-    { "markcornick/vim-bats", ft = { "bash" } },
+    { "cosmicbuffalo/vim-bats", ft = { "bash" } },
     { "elubow/cql-vim", lazy = true }, -- Cassandra syntax highlighting; can this be replaced with Treesitter?
     { "guns/vim-clojure-highlight", ft = { "clojure" } },
     { "guns/vim-clojure-static", ft = { "clojure" } },

@@ -10,11 +10,6 @@ return {
         event = "InsertEnter",
     },
     {
-        "numToStr/Comment.nvim",
-        event = LazyFileEvents,
-        opts = {},
-    },
-    {
         "saghen/blink.cmp",
         version = "1.*",
         opts_extend = {

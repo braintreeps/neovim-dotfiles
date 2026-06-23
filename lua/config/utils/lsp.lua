@@ -11,7 +11,7 @@ local function install_gems(gems, lsp_opts)
     local gem_install = require("gem_install")
 
     local configure_gem_server = function(server)
-        local server_config = lsp_opts.servers[server] or {}
+        local server_config = lsp_opts.server_defs[server] or {}
         if lsp_opts.capabilities then
             server_config = vim.tbl_deep_extend("force", { capabilities = lsp_opts.capabilities }, server_config)
         end
@@ -41,7 +41,7 @@ function M.ensure_for_filetype(ft, lsp_opts)
     end
     processed_filetypes[ft] = true
 
-    local config = lsp_opts.filetype_config[ft]
+    local config = lsp_opts.filetype_tooling[ft]
     if not config then
         return
     end
@@ -54,7 +54,7 @@ function M.ensure_for_filetype(ft, lsp_opts)
 
         -- Install mason LSP servers
         if config.servers then
-            Utils.mason.install_servers(config.servers, lsp_opts)
+            Utils.mason.install_servers(config.servers, lsp_opts, ft)
         end
 
         -- Install gems via gem_install.nvim (gems is a map of gem_name -> lsp_server)
