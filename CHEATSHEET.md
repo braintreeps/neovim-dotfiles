@@ -282,17 +282,6 @@ This cheatsheet is automatically generated. It includes all keymaps from:
 | `<M-;>` | `i` | Cancel | [`lua/plugins/coding.lua:178`](https://github.com/PayPal-Braintree/neovim-dotfiles/blob/main/lua/plugins/coding.lua#L178) |
 | `<Tab>` | `i` | Fallback | [`lua/plugins/coding.lua:183`](https://github.com/PayPal-Braintree/neovim-dotfiles/blob/main/lua/plugins/coding.lua#L183) |
 
-## Copilot
-
-| Keymap | Mode | Description | Source |
-|--------|------|-------------|--------|
-| `<leader>al` | `n` | [a]i [l]ogin | [`lua/plugins/ai.lua:30`](https://github.com/PayPal-Braintree/neovim-dotfiles/blob/main/lua/plugins/ai.lua#L30) |
-| `<leader>aa` | `n` | [a]i [a]sk | [`lua/plugins/ai.lua:58`](https://github.com/PayPal-Braintree/neovim-dotfiles/blob/main/lua/plugins/ai.lua#L58) |
-| `<leader>ap` | `n` | [a]i [p]rompt | [`lua/plugins/ai.lua:59`](https://github.com/PayPal-Braintree/neovim-dotfiles/blob/main/lua/plugins/ai.lua#L59) |
-| `<leader>ae` | `n` | [a]i [e]xplain | [`lua/plugins/ai.lua:60`](https://github.com/PayPal-Braintree/neovim-dotfiles/blob/main/lua/plugins/ai.lua#L60) |
-| `<leader>ar` | `n` | [a]i [r]eview | [`lua/plugins/ai.lua:61`](https://github.com/PayPal-Braintree/neovim-dotfiles/blob/main/lua/plugins/ai.lua#L61) |
-| `<leader>aq` | `n` | [a]i [q]uick chat | [`lua/plugins/ai.lua:63`](https://github.com/PayPal-Braintree/neovim-dotfiles/blob/main/lua/plugins/ai.lua#L63) |
-
 ## Plugin: LSP
 
 | Keymap | Mode | Description | Source |

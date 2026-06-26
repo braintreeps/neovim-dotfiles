@@ -221,7 +221,6 @@ return {
                     },
                 },
             },
-            "AndreM222/copilot-lualine",
         },
         opts = function()
             -- NOTE: This isn't personalizable without duplicating the entire function
@@ -380,10 +379,6 @@ return {
                         {
                             "searchcount",
                             color = { fg = "cyan" },
-                        },
-                        {
-                            "copilot",
-                            padding = { left = 1, right = 0 },
                         },
                         updater_component,
                         -- "lsp_status"

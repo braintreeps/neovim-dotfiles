@@ -164,10 +164,6 @@ Once you're comfortable with the basics:
   - *Check out [the plugin repo](https://github.com/lewis6991/gitsigns.nvim) to see what it can do! You can use it via command mode, or create your own custom keymaps*
   - *We may include more `Gitsigns` keymaps by default in the future*
 
-### AI Tooling
-- **`<Leader>al`** - Log into GitHub Copilot
-- **`<Leader>aa`** - Open the copilot chat panel
-
 ### Advanced Finding
 - **`<Leader>gw`** - Grep for the word under your cursor
 - **`<Leader>cs`** - Show document outline (functions, classes, etc.)
@@ -191,12 +187,7 @@ Once you're comfortable with the basics:
 
 ## 🤯 Advanced Features
 
-### GitHub Copilot
-
-#### Authenticate
-`:Copilot auth` or `\al`
-
-#### Tab completion
+### Tab completion
 To cycle between tab-completed suggestions, use `C-n` and `C-p` (Vim shorthand for Control n and Control p).
 
 ### Dealing with LSPs
