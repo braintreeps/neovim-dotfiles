@@ -180,4 +180,5 @@ map("n", "<leader>uT", function()
     end
 end, { noremap = true, desc = "Toggle Treesitter Highlighting" })
 
-map({'n', 'v'}, '<Leader>cc', '<cmd>normal gcc<cr>', { desc = "Comments the current or highlighted lines" })
+map("n", "<leader>cc", "<cmd>normal gcc<cr>", { desc = "Comment the current line" })
+map("v", "<leader>cc", "<cmd>normal gcc<cr>", { desc = "Comment the highlighted lines" })

@@ -684,6 +684,7 @@ This cheatsheet is automatically generated. It includes all keymaps from:
 | `<leader>gp` | `n` | Copy GitHub PR URL for current branch | [`lua/config/keymaps.lua:136`](https://github.com/braintreeps/neovim-dotfiles/blob/main/lua/config/keymaps.lua#L136) |
 | `<leader>gP` | `n` | Copy GitHub PR URL for line blame (gh cli) | [`lua/config/keymaps.lua:170`](https://github.com/braintreeps/neovim-dotfiles/blob/main/lua/config/keymaps.lua#L170) |
 | `<leader>uT` | `n` | Toggle Treesitter Highlighting | [`lua/config/keymaps.lua:173`](https://github.com/braintreeps/neovim-dotfiles/blob/main/lua/config/keymaps.lua#L173) |
+| `<leader>cc` | `n` `v` | Comment the current line/Comment the highlighted lines | [`lua/config/keymaps.lua:183`](https://github.com/braintreeps/neovim-dotfiles/blob/main/lua/config/keymaps.lua#L183) |
 | `<tab>` | `v` | Align markdown table | [`lua/plugins/coding.lua:209`](https://github.com/braintreeps/neovim-dotfiles/blob/main/lua/plugins/coding.lua#L209) |
 | `<Bar>` | `n` | Select and align markdown table | [`lua/plugins/coding.lua:215`](https://github.com/braintreeps/neovim-dotfiles/blob/main/lua/plugins/coding.lua#L215) |
 
