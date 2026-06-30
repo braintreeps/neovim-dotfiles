@@ -179,3 +179,6 @@ map("n", "<leader>uT", function()
         vim.notify("Enabled Treesitter Highlighting")
     end
 end, { noremap = true, desc = "Toggle Treesitter Highlighting" })
+
+map("n", "<leader>cc", "<cmd>normal gcc<cr>", { desc = "Comment the current line" })
+map("v", "<leader>cc", "<cmd>normal gcc<cr>", { desc = "Comment the highlighted lines" })
