@@ -5,6 +5,7 @@ M._queries = {} ---@type table<string,boolean>
 
 M.ensure_installed = {
     "bash",
+    "c",
     "cmake",
     "cue",
     "diff",
