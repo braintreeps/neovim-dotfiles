@@ -106,6 +106,7 @@ return {
                     end,
                 },
                 yamlls = { mason = "yaml-language-server" },
+                ts_ls = { mason = "typescript-language-server" },
             },
             -- `filetype_tooling`: per-filetype workflow tooling installed on demand
             -- when a buffer of that filetype is opened. Each entry can have:
@@ -135,6 +136,22 @@ return {
                 python = {
                     servers = { "basedpyright" },
                     tools = { "ruff" },
+                },
+                javascript = {
+                    servers = { "ts_ls" },
+                    tools = { "prettier" },
+                },
+                javascriptreact = {
+                    servers = { "ts_ls" },
+                    tools = { "prettier" },
+                },
+                typescript = {
+                    servers = { "ts_ls" },
+                    tools = { "prettier" },
+                },
+                typescriptreact = {
+                    servers = { "ts_ls" },
+                    tools = { "prettier" },
                 },
                 ruby = {
                     -- Ruby LSP servers are installed via gems, not mason
@@ -197,6 +214,7 @@ return {
                         "goimports",
                         "gofumpt",
                         "ruff",
+                        "prettier",
                     },
                     silent = true,
                 },
