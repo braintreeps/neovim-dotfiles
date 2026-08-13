@@ -192,6 +192,5 @@ return {
     { "jergason/scala.vim", ft = { "scala" } },
     { "derekwyatt/vim-scala", ft = { "scala" } },
     { "hashivim/vim-terraform", ft = { "terraform" } },
-    { "leafgarland/typescript-vim", ft = { "typescript" } },
     { "lmeijvogel/vim-yaml-helper", ft = { "yaml" } },
 }

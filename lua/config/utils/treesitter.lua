@@ -39,6 +39,7 @@ M.ensure_installed = {
     "terraform",
     "toml",
     "typescript",
+    "tsx",
     "vim",
     "vimdoc",
     "yaml",
