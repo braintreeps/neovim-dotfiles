@@ -11,6 +11,8 @@ map("n", "<leader>l", "<cmd>Lazy<cr>", { desc = "Lazy" })
 -- Remove trailing whitespace
 map("n", "<Leader>cw", "<cmd>%s/\\s\\+$//e<cr>", { desc = "Remove trailing whitespace" })
 
+map("x", "<leader>cw", "gw", { desc = "Wrap selected text to textwidth" })
+
 -- For those who hold shift too long
 vim.api.nvim_create_user_command("W", "w", {})
 
