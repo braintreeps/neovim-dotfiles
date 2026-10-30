@@ -142,7 +142,7 @@ local function copy_github_pr_url()
         return
     end
 
-    local branch = repo_output({ "git", "rev-parse", "--abbrev-ref", "HEAD" })
+    local branch = repo_output({ "git", "branch", "--show-current" })
 
     if not branch or branch == "" then
         vim.notify("No git branch found", vim.log.levels.ERROR)
@@ -175,7 +175,7 @@ local function copy_merged_pr_url()
             "--json",
             "number",
             "--jq",
-            ".[0].number",
+            ".[0].number // empty",
         })
         if pr_number and pr_number ~= "" then
             local pr_url = repo_output({ "gh", "browse", pr_number, "-n" })
