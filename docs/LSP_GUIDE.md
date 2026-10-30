@@ -130,10 +130,11 @@ opts = {
 ## Troubleshooting
 
 ### LSP Not Working?
-1. Check if server is installed: `<Leader>cm` and make sure your server is in the "Installed" section
-2. Check if server is running: `:LspInfo`
-3. Restart LSP: `:LspRestart`
-4. Check LSP logs for issues: `:LspLog`
+1. Run `:checkhealth dotfiles`. It validates the `server_defs` and `filetype_tooling` contract and reports servers that are named but not defined
+2. Check if server is installed: `<Leader>cm` and make sure your server is in the "Installed" section
+3. Check if server is running: `:LspInfo`
+4. Restart LSP: `:LspRestart`
+5. Check LSP logs for issues: `:LspLog`
 
 ### Server Won't Install?
 1. Check internet connection

@@ -97,9 +97,13 @@ git clone git@github.com:braintreeps/neovim-dotfiles.git ~/.config/nvim
 nvim
 ```
 
-> [!TIP]
-> It's recommended to run `:checkhealth` after installation. This will load all
-> plugins, and check if everything is working correctly.
+> [!IMPORTANT]
+> After installing, run `:checkhealth dotfiles` and resolve anything it reports
+> as an error. It checks your Neovim version, required tools, language server
+> configuration, lockfiles, treesitter parsers, personal overlay, and
+> clipboard. Every warning and error includes advice on how to fix it. Run it
+> again after updating or switching versions, and include its output when
+> reporting a problem.
 
 ### 👥 Running alongside existing Neovim config
 
