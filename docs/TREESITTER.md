@@ -19,34 +19,31 @@ Think of it as having a deep understanding of your code's structure, enabling mu
 
 This config comes pre-configured with treesitter parsers for common languages including:
 
-- **Bash/Shell scripts**
-- **CSS/SCSS/SASS**
-- **Dockerfile**
-- **Git files** (commits, configs, etc.)
-- **HTML**
-- **JavaScript/TypeScript**
-- **JSON/JSONC**
-- **Lua** - for Neovim configuration
-- **Markdown**
-- **Python**
-- **Ruby**
-- **SQL**
-- **YAML/TOML**
-- **Vim script**
+- **Shell**: `bash`
+- **Systems and JVM**: `c`, `cmake`, `go`, `java`, `kotlin`, `groovy`, `rust`
+- **Web**: `html`, `javascript`, `typescript`, `tsx`
+- **Data and config**: `json`, `yaml`, `toml`, `properties`, `proto`, `jq`, `cue`
+- **Infrastructure**: `terraform`, `hcl`, `dockerfile`, `puppet`
+- **Ruby**: `ruby`, `embedded_template`
+- **Editor and docs**: `lua`, `luadoc`, `markdown`, `markdown_inline`, `vim`, `vimdoc`
+- **Git and SSH files**: `diff`, `git_config`, `git_rebase`, `gitignore`, `ssh_config`
+- **Other**: `python`, `sql`, `http`
+
+The source of truth is `ensure_installed` in `lua/config/utils/treesitter.lua`.
 
 ## How It Works
 
 ### Manual Management
-- **`:TSInstallInfo`** - See which parsers are installed
+- **`:checkhealth nvim-treesitter`** - See which parsers are installed
 - **`:TSUpdate`** - Update all installed parsers
-- **`:TSBufToggle highlight`** - Toggle treesitter highlighting for current buffer
+- **`:lua vim.treesitter.stop()`** - Turn off treesitter highlighting for the current buffer
 
 ### Installing Parsers
 
 #### **Recommended way**
 
 If you haven't already, create a
-[personal scaffold](https://github.com/PayPal-Braintree/neovim-dotfiles-personal.scaffold)
+[personal scaffold](https://github.com/braintreeps/neovim-dotfiles-personal.scaffold)
 and add a spec in there with the languages that you want to add, as well as any
 other configuration
 ```lua
@@ -69,7 +66,7 @@ other configuration
 You can also install manually
 1. Install a parser: `:TSInstall <language>`
    - Example: `:TSInstall go` for Go language support
-2. Check installation: `:TSInstallInfo`
+2. Check installation: `:checkhealth nvim-treesitter`
 3. Update if needed: `:TSUpdate <language>`
 
 or add the parser to the `ensure_installed` property in the setup function in the treesitter plugin config
@@ -152,8 +149,8 @@ Once configured, you can use treesitter text objects for precise selections:
 4. View installation logs: `:messages`
 
 ### Performance Issues?
-1. Check parser status: `:TSInstallInfo`
-2. Disable for large files: `:TSBufDisable highlight`
+1. Check parser status: `:checkhealth nvim-treesitter`
+2. Turn off highlighting for the current buffer: `:lua vim.treesitter.stop()`
 3. Reduce parser features in config:
 ```lua
 opts = {
@@ -166,7 +163,7 @@ opts = {
 ### Wrong Language Detection?
 1. Check file extension is correct
 2. Force filetype: `:set filetype=<language>`
-3. Verify parser exists: `:TSInstallInfo`
+3. Verify parser exists: `:checkhealth nvim-treesitter`
 
 ## Learning More
 
@@ -181,8 +178,7 @@ opts = {
 |--------|---------|-------------|
 | Install parser | `:TSInstall <lang>` | Install parser for language |
 | Update parsers | `:TSUpdate` | Update all installed parsers |
-| Check status | `:TSInstallInfo` | See installed parsers |
-| Toggle highlighting | `:TSBufToggle highlight` | Enable/disable for current buffer |
-| Toggle all features | `:TSBufToggle` | Show available toggle options |
+| Check status | `:checkhealth nvim-treesitter` | See installed parsers |
+| Stop highlighting | `:lua vim.treesitter.stop()` | Disable for current buffer |
 | View logs | `:messages` | Debug installation issues |
-| Playground | `:TSPlaygroundToggle` | Interactive syntax tree explorer |
+| Inspect tree | `:InspectTree` | Interactive syntax tree explorer |
