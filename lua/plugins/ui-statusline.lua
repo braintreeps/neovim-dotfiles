@@ -106,6 +106,11 @@ return {
 
                     -- Use the most severe diagnostic's highlight for the entire string
                     local most_severe = diagnostics[1]
+                    for _, diag in ipairs(diagnostics) do
+                        if diag.severity < most_severe.severity then
+                            most_severe = diag
+                        end
+                    end
                     return highlight.component_format_highlight(hl[most_severe.severity])
                         .. table.concat(messages, "  ")
                 else
