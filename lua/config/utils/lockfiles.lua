@@ -33,7 +33,9 @@ local function collect_names(spec, names)
     elseif type(spec) == "table" then
         if type(spec[1]) == "string" then
             names[plugin_name(spec)] = true
-            collect_names(spec.dependencies, names)
+            for _, dependency in ipairs(type(spec.dependencies) == "table" and spec.dependencies or {}) do
+                collect_names(dependency, names)
+            end
         else
             for _, child in ipairs(spec) do
                 collect_names(child, names)
