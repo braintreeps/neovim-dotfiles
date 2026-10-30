@@ -81,6 +81,17 @@ local function check_lsp_contract()
     end
 end
 
+local function owned_by_this_repo(name, declared)
+    local loaded, source = pcall(require, "super_lazy.source")
+    if loaded then
+        local repo = source.get_plugin_source(name)
+        if repo then
+            return vim.fn.resolve(repo) == vim.fn.resolve(config_dir)
+        end
+    end
+    return declared[name] == true
+end
+
 local function check_lockfiles()
     health.start("Lockfiles")
 
@@ -94,13 +105,13 @@ local function check_lockfiles()
             local declared = lockfiles.declared_plugins(config_dir .. "/lua/plugins")
             local unlocked = {}
             for name in pairs(lazy_config.plugins) do
-                if declared[name] and lazy_lock[name] == nil then
+                if owned_by_this_repo(name, declared) and lazy_lock[name] == nil then
                     unlocked[#unlocked + 1] = name
                 end
             end
             table.sort(unlocked)
             if #unlocked == 0 then
-                health.ok("Every plugin declared in lua/plugins has a lazy-lock.json entry")
+                health.ok("Every plugin owned by this repo has a lazy-lock.json entry")
             else
                 health.warn("Not in lazy-lock.json: " .. table.concat(unlocked, ", "), {
                     "Record them with :Lazy update <name>, or remove them if they are no longer declared",
