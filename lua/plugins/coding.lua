@@ -140,7 +140,7 @@ return {
                             return cmp.select_and_accept()
                         end
                     end,
-                    Utils.cmp.map({ "snippet_forward", "ai_accept" }),
+                    Utils.cmp.map({ "snippet_forward" }),
                     "fallback",
                 },
                 ["<S-Tab>"] = { "snippet_backward", "fallback" },
@@ -165,7 +165,7 @@ return {
                 ["<M-h>"] = { "show_documentation", "hide_documentation" },
                 ["<M-j>"] = { "show", "select_next" },
                 ["<M-k>"] = { "select_prev" },
-                ["<M-l>"] = { "select_and_accept", Utils.cmp.map({ "ai_accept" }) },
+                ["<M-l>"] = { "select_and_accept" },
                 ["<M-;>"] = { "cancel" },
             },
             cmdline = {
