@@ -79,7 +79,7 @@ function M.open_buffer_explorer()
                 local current_picker = action_state.get_current_picker(prompt_bufnr)
                 current_picker:delete_selection(function(selection)
                     local bufnr = selection.bufnr
-                    local force = vim.api.nvim_buf_get_option(bufnr, "buftype") == "terminal"
+                    local force = vim.bo[bufnr].buftype == "terminal"
                     if force then
                         return pcall(vim.api.nvim_buf_delete, bufnr, { force = force })
                     elseif vim.fn.getbufvar(bufnr, "&modified") == 1 then
