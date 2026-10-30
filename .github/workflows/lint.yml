@@ -20,3 +20,46 @@ jobs:
           version: latest
           args: --check .
 
+  smoke:
+    runs-on: ubuntu-latest
+    continue-on-error: ${{ matrix.nvim == 'nightly' }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        nvim: [v0.11.7, nightly]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Neovim ${{ matrix.nvim }}
+        run: |
+          curl -fsSL -o "$RUNNER_TEMP/nvim.tar.gz" \
+            "https://github.com/neovim/neovim/releases/download/${{ matrix.nvim }}/nvim-linux-x86_64.tar.gz"
+          tar -C "$RUNNER_TEMP" -xzf "$RUNNER_TEMP/nvim.tar.gz"
+          echo "$RUNNER_TEMP/nvim-linux-x86_64/bin" >> "$GITHUB_PATH"
+
+      - name: Isolate Neovim directories
+        run: |
+          base="$RUNNER_TEMP/nvim-home"
+          mkdir -p "$base/config" "$base/data" "$base/state" "$base/cache"
+          cp -R . "$base/config/nvim"
+          {
+            echo "XDG_CONFIG_HOME=$base/config"
+            echo "XDG_DATA_HOME=$base/data"
+            echo "XDG_STATE_HOME=$base/state"
+            echo "XDG_CACHE_HOME=$base/cache"
+          } >> "$GITHUB_ENV"
+
+      - name: Show Neovim version
+        run: nvim --version | head -n 1
+
+      - name: Load config modules
+        run: nvim --headless -l scripts/ci/smoke.lua
+
+      - name: Check LSP contract
+        run: nvim --headless -l scripts/ci/check_contract.lua
+
+      - name: Check lockfiles
+        run: nvim --headless -l scripts/ci/check_lockfiles.lua
+
