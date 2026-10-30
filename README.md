@@ -132,7 +132,7 @@ environment variables](https://github.com/neovim/neovim/pull/22128).
     - Please create for any unexpected behavior, missing behavior, desired
       improvements, etc. This will help ensure that we can successfully
       "upgrade" our [vim_dotfiles][vim_dotfiles] to Neovim.
-- Pull requests are encouraged!
+- Pull requests are encouraged! See [CONTRIBUTING.md](./CONTRIBUTING.md) and [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md).
 
 [vim_dotfiles]: https://github.com/braintreeps/vim_dotfiles
 [lazy.nvim]: https://github.com/folke/lazy.nvim
