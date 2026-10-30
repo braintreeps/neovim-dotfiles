@@ -1,140 +1,6 @@
 -- UI: Enhance the user interface with features such as status line, buffer line, indentation guides, dashboard, and icons.
 local Utils = require("config.utils")
 
-local git_root_cache = {}
-local _no_ignore = false
-
-local file_pickers = {
-    ["Find Files"] = "find_files",
-    ["Git Files"] = "git_files",
-    ["Live Grep"] = "live_grep",
-    ["Grep String"] = "grep_string",
-}
-
-local function toggle_no_ignore(prompt_bufnr)
-    local action_state = require("telescope.actions.state")
-    local picker = action_state.get_current_picker(prompt_bufnr)
-    local base_title = picker.prompt_title:gsub(" %(no_ignore%)$", "")
-
-    local builtin_name = file_pickers[base_title]
-    if not builtin_name then
-        vim.notify("no_ignore is not applicable to this picker", vim.log.levels.WARN)
-        return
-    end
-
-    _no_ignore = not _no_ignore
-
-    local title = base_title
-    if _no_ignore then
-        title = title .. " (no_ignore)"
-    end
-
-    require("telescope.builtin")[builtin_name]({
-        default_text = picker:_get_prompt(),
-        no_ignore = _no_ignore,
-        prompt_title = title,
-    })
-end
-
--- Find files from project root (git root if available, otherwise current directory)
-local function find_files_from_project_git_root()
-    local opts = Utils.lazy.opts("telescope.nvim").pickers.find_files or {}
-    local cwd = vim.fn.getcwd()
-
-    local cache_key = cwd
-    if git_root_cache[cache_key] == nil then
-        local git_root = vim.fn.system("git rev-parse --show-toplevel 2>/dev/null"):gsub("%s+$", "")
-        if vim.v.shell_error == 0 and git_root ~= "" and vim.fn.isdirectory(git_root) == 1 then
-            git_root_cache[cache_key] = { is_git = true, root = git_root }
-        else
-            git_root_cache[cache_key] = { is_git = false, root = cwd }
-        end
-    end
-
-    local cache_entry = git_root_cache[cache_key]
-    local search_opts = vim.tbl_deep_extend("force", opts, { cwd = cache_entry.root })
-
-    if cache_entry.is_git then
-        require("telescope.builtin").git_files(search_opts)
-    else
-        require("telescope.builtin").find_files(search_opts)
-    end
-end
-
-local function OpenPluginExplorer()
-    require("telescope.builtin").find_files({
-        cwd = require("lazy.core.config").options.root,
-        prompt_title = "Plugin Files",
-    })
-end
-
-local function OpenBufferExplorer()
-    require("telescope.builtin").buffers({
-        sort_mru = true,
-        attach_mappings = function(prompt_bufnr, map)
-            local action_state = require("telescope.actions.state")
-            local bd = require("mini.bufremove").delete
-            local delete_buffer = function()
-                local current_picker = action_state.get_current_picker(prompt_bufnr)
-                current_picker:delete_selection(function(selection)
-                    local bufnr = selection.bufnr
-                    local force = vim.api.nvim_buf_get_option(bufnr, "buftype") == "terminal"
-                    if force then
-                        return pcall(vim.api.nvim_buf_delete, bufnr, { force = force })
-                    elseif vim.fn.getbufvar(bufnr, "&modified") == 1 then
-                        -- stylua: ignore
-                        local choice = vim.fn.confirm(("Save changes to %q?"):format(vim.fn.bufname(bufnr)),
-                            "&Yes\n&No\n&Cancel")
-                        if choice == 1 then -- Yes
-                            vim.api.nvim_buf_call(bufnr, function()
-                                vim.cmd("write")
-                            end)
-                            return bd(bufnr)
-                        elseif choice == 2 then -- No
-                            return bd(bufnr, true)
-                        end
-                    else
-                        return bd(bufnr)
-                    end
-                end)
-            end
-            map("n", "d", delete_buffer)
-            return true
-        end,
-    })
-end
-
-local function scope_to_dir(prompt_bufnr, picker)
-    local actions = require("telescope.actions")
-    local action_state = require("telescope.actions.state")
-    local fb = require("telescope").extensions.file_browser
-    local current_line = action_state.get_current_line()
-
-    fb.file_browser({
-        files = false,
-        depth = false,
-        follow_symlinks = true,
-        no_ignore = true,
-        display_stat = { date = false, size = false, mode = false },
-        attach_mappings = function(prompt_bufnr)
-            actions.select_default:replace(function()
-                local entry_path = action_state.get_selected_entry().Path
-                local dir = entry_path:is_dir() and entry_path or entry_path:parent()
-                local relative = dir:make_relative(vim.fn.getcwd())
-                local absolute = dir:absolute()
-
-                picker({
-                    results_title = relative .. "/",
-                    cwd = absolute,
-                    default_text = current_line,
-                })
-            end)
-
-            return true
-        end,
-    })
-end
-
 return {
     {
         "folke/noice.nvim",
@@ -429,21 +295,21 @@ return {
         keys = {
             -- Misc keymaps
             { "<Leader><Leader>", "<cmd>Telescope find_files<CR>",                desc = "Find files" },
-            { "<C-p>",            function() find_files_from_project_git_root() end,  desc = "Find (git) files" },
-            { "<Leader>be",       function() OpenBufferExplorer() end,            desc = "Buffer Explorer" },
+            { "<C-p>",            function() Utils.telescope.find_files_from_project_git_root() end,  desc = "Find (git) files" },
+            { "<Leader>be",       function() Utils.telescope.open_buffer_explorer() end,            desc = "Buffer Explorer" },
             { "<Leader>gw",       "<cmd>Telescope grep_string<CR>",               desc = "Grep word in cursor" },
             Utils.colors.SwitchColorschemeKeyMap,
             -- "find" keymaps
-            { "<Leader>ff",       function() find_files_from_project_git_root() end,  desc = "Find (git) files" },
+            { "<Leader>ff",       function() Utils.telescope.find_files_from_project_git_root() end,  desc = "Find (git) files" },
             { "<Leader>fg",       "<cmd>Telescope live_grep<CR>",                 desc = "Find (grep)" },
-            { "<Leader>fb",       function() OpenBufferExplorer() end,            desc = "Find Buffers" },
+            { "<Leader>fb",       function() Utils.telescope.open_buffer_explorer() end,            desc = "Find Buffers" },
             { "<Leader>fr",       "<cmd>Telescope oldfiles<CR>",                  desc = "Find Recent" },
             { "<Leader>fmp",      "<cmd>Telescope man_pages<CR>",                 desc = "Find man pages" },
             { "<Leader>fh",       "<cmd>Telescope help_tags<CR>",                 desc = "Find help tags" },
             { "<Leader>fm",       "<cmd>Telescope marks<CR>",                     desc = "Find marks" },
             { "<Leader>fd",       "<cmd>Telescope diagnostics bufnr=0<CR>",       desc = "Document Diagnostics" },
             { "<Leader>fD",       "<cmd>Telescope diagnostics<CR>",               desc = "Workspace Diagnostics" },
-            { "<Leader>fp",       function() OpenPluginExplorer() end,            desc = "Find Plugin File" },
+            { "<Leader>fp",       function() Utils.telescope.open_plugin_explorer() end,            desc = "Find Plugin File" },
             -- "search" keymaps
             { "<Leader>sk",       "<cmd>Telescope keymaps<CR>",                   desc = "Keymaps" },
             { '<Leader>s"',       "<cmd>Telescope registers<CR>",                 desc = "Registers" },
@@ -525,10 +391,10 @@ return {
                 },
                 mappings = {
                     i = {
-                        ["<C-I>"] = toggle_no_ignore,
+                        ["<C-I>"] = Utils.telescope.toggle_no_ignore,
                     },
                     n = {
-                        ["<C-I>"] = toggle_no_ignore,
+                        ["<C-I>"] = Utils.telescope.toggle_no_ignore,
                     },
                 },
             },
@@ -540,7 +406,7 @@ return {
                     mappings = {
                         i = {
                             ["<C-e>"] = function(prompt_bufnr)
-                                scope_to_dir(prompt_bufnr, require("telescope.builtin").live_grep)
+                                Utils.telescope.scope_to_dir(prompt_bufnr, require("telescope.builtin").live_grep)
                             end,
                         },
                     },
@@ -550,7 +416,7 @@ return {
                     mappings = {
                         i = {
                             ["<C-e>"] = function(prompt_bufnr)
-                                scope_to_dir(prompt_bufnr, require("telescope.builtin").find_files)
+                                Utils.telescope.scope_to_dir(prompt_bufnr, require("telescope.builtin").find_files)
                             end,
                         },
                     },
@@ -561,7 +427,7 @@ return {
                     mappings = {
                         i = {
                             ["<C-e>"] = function(prompt_bufnr)
-                                scope_to_dir(prompt_bufnr, require("telescope.builtin").find_files) -- intentional move to find_files to respect cwd option
+                                Utils.telescope.scope_to_dir(prompt_bufnr, require("telescope.builtin").find_files) -- intentional move to find_files to respect cwd option
                             end,
                         },
                     },
