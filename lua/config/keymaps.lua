@@ -89,12 +89,12 @@ map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
 -- create executables
 map("n", "<leader>fx", "<cmd>!chmod +x %:S<CR>", { silent = true, desc = "Make executable" })
 -- copy paths
-function copy_relative_path()
+local function copy_relative_path()
     local path = require("config.utils").relative_path()
     vim.fn.setreg("+", path)
     vim.notify("Copied relative path to clipboard: " .. path)
 end
-function copy_path()
+local function copy_path()
     local path = require("config.utils").path()
     vim.fn.setreg("+", path)
     vim.notify("Copied path to clipboard: " .. path)
