@@ -91,15 +91,16 @@ local function check_lockfiles()
         health.ok("lazy-lock.json parses")
         local loaded, lazy_config = pcall(require, "lazy.core.config")
         if loaded then
+            local declared = lockfiles.declared_plugins(config_dir .. "/lua/plugins")
             local unlocked = {}
             for name in pairs(lazy_config.plugins) do
-                if lazy_lock[name] == nil then
+                if declared[name] and lazy_lock[name] == nil then
                     unlocked[#unlocked + 1] = name
                 end
             end
             table.sort(unlocked)
             if #unlocked == 0 then
-                health.ok("Every installed plugin has a lazy-lock.json entry")
+                health.ok("Every plugin declared in lua/plugins has a lazy-lock.json entry")
             else
                 health.warn("Not in lazy-lock.json: " .. table.concat(unlocked, ", "), {
                     "Record them with :Lazy update <name>, or remove them if they are no longer declared",
