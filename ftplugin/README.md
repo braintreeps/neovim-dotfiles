@@ -22,4 +22,4 @@ Do not use them to set plugin-specific keymappings. For a `vim-rails` keymapping
 the [plugin spec](../lua/plugins/), etc.
 
 For key-mappings and options that are meant to be global (neither plugin-specific, nor language
-specific) please place them in the [usual](../lua/keymaps.lua) [places](../lua/options.lua).
+specific) please place them in the [usual](../lua/config/keymaps.lua) [places](../lua/config/options.lua).

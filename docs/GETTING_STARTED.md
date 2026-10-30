@@ -200,7 +200,7 @@ To cycle between tab-completed suggestions, use `C-n` and `C-p` (Vim shorthand f
 - **`<Leader>qd`** - Delete your session
 
 ### Personalizing Your Config
-This Neovim config is totally hackable! Check out the [neovim-dotfiles-personal.scaffold repo](https://github.com/PayPal-Braintree/neovim-dotfiles-personal.scaffold) to see how you can tweak things to your liking.
+This Neovim config is totally hackable! Check out the [neovim-dotfiles-personal.scaffold repo](https://github.com/braintreeps/neovim-dotfiles-personal.scaffold) to see how you can tweak things to your liking.
 
 ## 💡 Learning Tips
 

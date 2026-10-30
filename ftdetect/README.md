@@ -48,7 +48,7 @@ settings after a filetype is detected, use [`ftplugin`][] files instead.
 
 For key-mappings and options that are meant to be global (neither
 plugin-specific, nor language specific) please place them in the
-[usual](../lua/keymaps.lua) [places](../lua/options.lua).
+[usual](../lua/config/keymaps.lua) [places](../lua/config/options.lua).
 
 The file name doesn't matter, unlike with [`ftplugin`][]; you can use any
 descriptive name that explains what the detection does. However, please use
