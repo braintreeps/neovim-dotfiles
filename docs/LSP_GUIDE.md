@@ -18,9 +18,15 @@ Think of it as having a programming language expert looking over your shoulder, 
 This config comes pre-configured with LSP support for:
 
 - **Bash/Shell scripts** (`bashls`)
-- **Go** (`gopls`) - for Go development
-- **Lua** (`lua_ls`) - for Neovim configuration
-- **Ruby** (`ruby_lsp`) - for Ruby/Rails development
+- **Go** (`gopls`)
+- **Lua** (`lua_ls`)
+- **Python** (`basedpyright`)
+- **Ruby** (`ruby_lsp`, `rubocop`)
+- **Terraform** (`terraformls`)
+- **TypeScript/JavaScript** (`ts_ls`)
+- **YAML** (`yamlls`)
+
+The source of truth is `server_defs` and `filetype_tooling` in `lua/plugins/lsp.lua`.
 
 ## How It Works
 
@@ -36,32 +42,40 @@ When you first open a file in a supported language, the LSP server is automatica
 
 ## Adding New Languages
 
-1. Open Mason: `<Leader>cm` or `:Mason`
-2. Find your language server (press `/` to search)
-3. Press `i` to install
-4. Add any custom configuration for the server (optional)
+Language support is declared in two tables under `opts` for `"neovim/nvim-lspconfig"` in `lua/plugins/lsp.lua`:
 
-### LSP Server Configuration
-Create or open `~/.config/nvim/lua/personal/plugins/lsp.lua` and update it to look like the following:
+- `server_defs` — one entry per language server, keyed by the server name that `vim.lsp.enable` accepts. The entry holds any custom config for the server, plus an optional `mason` field with the Mason package name when it differs from the server name (use `mason = false` for servers that Mason doesn't install).
+- `filetype_tooling` — per-filetype tooling that is installed on demand the first time you open a file of that type. Each entry can list `servers` (keys of `server_defs`), `tools` (Mason formatters and linters), and `gems` (gem name to server name, for servers installed through `gem install`).
+
+Every server named in `filetype_tooling` must exist in `server_defs`. If one doesn't, you'll see an `lsp-contract` error notification when you open that filetype.
+
+To add a language, create or open `~/.config/nvim/lua/personal/plugins/lsp.lua` and add both tables:
 
 ```lua
 return {
   {
     "neovim/nvim-lspconfig",
     opts = {
-      servers = {
-        your_new_server_name_here = {
+      server_defs = {
+        rust_analyzer = {
+          mason = "rust-analyzer",
           -- add any custom config for your server here
-          -- (or leave empty to use defaults)
         },
-        -- other custom servers...
-      }
+      },
+      filetype_tooling = {
+        rust = {
+          servers = { "rust_analyzer" },
+        },
+      },
     },
-  }
+  },
 }
 ```
+
+You can find Mason package names by pressing `/` in `:Mason` (`<Leader>cm`).
+
 > [!NOTE]
-> If you think your new LSP server would be useful for others and should be a Braintree default LSP server, feel free to open a PR that adds it to the list of default LSP servers in [lua/config/lsp.lua](https://github.com/PayPal-Braintree/neovim-dotfiles/blob/8e9464f285ba7893f7924be30c160ba1b92cd9a9/lua/config/lsp.lua#L5)
+> If you think your new LSP server would be useful for others and should be a Braintree default LSP server, feel free to open a PR that adds it to `server_defs` and `filetype_tooling` in [lua/plugins/lsp.lua](../lua/plugins/lsp.lua).
 
 ### Popular Language Servers
 - **JavaScript/TypeScript**: `tsserver` or `ts_ls`
@@ -95,7 +109,7 @@ diagnostics = {
 Example for Lua language server:
 ```lua
 -- Again, this config is directly under `opts` for the "neovim/nvim-lspconfig" plugin
-servers = {
+server_defs = {
   lua_ls = {
     settings = {
       Lua = {
@@ -147,30 +161,20 @@ opts = {
 ### Performance Issues?
 1. Check LSP logs with `:LspLog`
 2. Turn off LSP with `:LspStop`
-3. Disable problematic LSP servers with `enabled = false` in `lua/personal/plugins/lsp.lua`
 
 ## Advanced Configuration
 
 ### Custom Server Setup
-For servers that need special configuration, you can add a setup function to your `lua/personal/plugins/lsp.lua`:
+Each `server_defs` entry is passed to `vim.lsp.config(server, config)`, so any field that Neovim's LSP client accepts works there, including `cmd`, `settings`, `on_init`, and `on_attach`:
 ```lua
-servers = {
+server_defs = {
   your_new_server_name_here = {
-    setup = function(server, server_opts)
+    cmd = { "your-server", "--stdio" },
+    on_init = function(client)
       -- Run whatever lua code you need to run here
-    end
-  }
-}
-```
-Or if you want to run a setup function for any LSP server that doesn't have its own explicit setup function, you can configure one like so:
-```lua
-servers = {
-  ["*"] = {
-    setup = function(server, server_opts)
-      -- This will run for any configured server without its own `setup` function
-    end
-  }
-}
+    end,
+  },
+},
 ```
 
 ## Learning More

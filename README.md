@@ -128,7 +128,7 @@ environment variables](https://github.com/neovim/neovim/pull/22128).
 
 ## 🤝 Contributing
 
-- [GitHub issues](https://github.com/PayPal-Braintree/neovim-dotfiles/issues)
+- [GitHub issues](https://github.com/braintreeps/neovim-dotfiles/issues)
     - Please create for any unexpected behavior, missing behavior, desired
       improvements, etc. This will help ensure that we can successfully
       "upgrade" our [vim_dotfiles][vim_dotfiles] to Neovim.
