@@ -95,6 +95,7 @@ return {
                 -- Ruby LSP servers are not managed by mason
                 ruby_lsp = { mason = false },
                 rubocop = { mason = false },
+                basedpyright = {},
                 bashls = { mason = "bash-language-server" },
                 terraformls = {
                     mason = "terraform-ls",
