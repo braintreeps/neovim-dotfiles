@@ -84,3 +84,12 @@ jobs:
       - name: Check lockfiles
         run: nvim --headless -l scripts/ci/check_lockfiles.lua
 
+      - name: Regenerate cheatsheet in isolated config
+        working-directory: ${{ runner.temp }}/nvim-home/config/nvim
+        run: |
+          nvim --headless -l scripts/ci/cheatsheet.lua
+          cp CHEATSHEET.md "$GITHUB_WORKSPACE/CHEATSHEET.md"
+
+      - name: Check CHEATSHEET.md is up to date
+        run: git diff --exit-code CHEATSHEET.md
+
