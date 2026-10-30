@@ -40,45 +40,16 @@ function M.toggle_option(option, values)
     end
 end
 
-function M.relative_path()
-    local current_dir = vim.fn.expand("%:p:h")
-    vim.fn.chdir(current_dir)
-
-    -- Attempt to get the git root directory
-    local root_dir = vim.fn.system("git rev-parse --show-toplevel"):gsub("\n", "")
-    local file_path = vim.fn.expand("%:p")
-    local relative_path
-
-    if vim.v.shell_error == 0 then
-        -- If inside a git repository
-        relative_path = file_path:sub(#root_dir + 2)
-    else
-        -- If not inside a git repository, make path relative to home directory
-        local home_dir = os.getenv("HOME")
-        if file_path:find(home_dir) == 1 then
-            relative_path = "~" .. file_path:sub(#home_dir + 1)
-        else
-            relative_path = file_path -- Use absolute path as a fallback
-        end
-    end
-    return relative_path
+function M.path()
+    return vim.fn.fnamemodify(vim.fn.expand("%:p"), ":~")
 end
 
-function M.path()
-    local current_dir = vim.fn.expand("%:p:h")
-    vim.fn.chdir(current_dir)
-
-    local file_path = vim.fn.expand("%:p")
-    local relative_path
-
-    local home_dir = os.getenv("HOME")
-    if file_path:find(home_dir) == 1 then
-        relative_path = "~" .. file_path:sub(#home_dir + 1)
-    else
-        relative_path = file_path -- Use absolute path as a fallback
+function M.relative_path()
+    local root = vim.fs.root(0, ".git")
+    if root then
+        return (vim.fn.expand("%:p"):sub(#root + 2))
     end
-
-    return relative_path
+    return M.path()
 end
 
 return M

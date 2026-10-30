@@ -83,7 +83,7 @@ return {
         },
     },
     { "tpope/vim-repeat" },
-    { "tpope/vim-rhubarb", events = LazyFileEvents },
+    { "tpope/vim-rhubarb", event = LazyFileEvents },
     { "tpope/vim-surround" },
     { "tpope/vim-unimpaired" },
     { "tpope/vim-vinegar" },

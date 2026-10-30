@@ -1,16 +1,16 @@
 vim.bo.syntax = "ruby"
 -- mnemonic: ruby-debug
 vim.keymap.set(
-    "",
+    "n",
     "<LocalLeader>rd",
     "Orequire 'pry'; require 'pry-byebug'; binding.pry<ESC>",
-    { desc = "[r]uby [d]ebug: binding.pry line under cursor" }
+    { buffer = true, desc = "[r]uby [d]ebug: binding.pry line under cursor" }
 )
 vim.keymap.set(
     "n",
     "<LocalLeader>rs",
     ":!ruby -c %<CR>",
-    { desc = "[r]uby [s]yntax: check the syntax of the current file", silent = true }
+    { buffer = true, desc = "[r]uby [s]yntax: check the syntax of the current file", silent = true }
 )
 
 local function remove_binding_pry()
@@ -40,7 +40,7 @@ vim.keymap.set(
     "n",
     "<LocalLeader>rD",
     remove_binding_pry,
-    { desc = "[r]uby [D]elete binding.pry lines in current buffer" }
+    { buffer = true, desc = "[r]uby [D]elete binding.pry lines in current buffer" }
 )
 
 local function test_context()
@@ -51,4 +51,4 @@ local function test_context()
     vim.api.nvim_win_set_cursor(0, pos)
 end
 
-vim.keymap.set("", "<LocalLeader>rc", test_context, { desc = "Run context", silent = true })
+vim.keymap.set("n", "<LocalLeader>rc", test_context, { buffer = true, desc = "Run context", silent = true })
