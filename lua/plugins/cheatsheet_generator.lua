@@ -157,9 +157,9 @@ return {
                 -- stylua: ignore
                 ["telescope.nvim"] = {
                     -- Telescope keymap customizations
-                    { keymap = "d", mode = "n", desc = "Delete buffer (in buffer explorer)", source = "lua/plugins/ui.lua" },
-                    { keymap = "<C-e>", mode = "i", desc = "Scope to directory (with picker open)", source = "lua/plugins/ui.lua" },
-                    { keymap = "<C-e>", mode = "n", desc = "Scope to directory (with picker open)", source = "lua/plugins/ui.lua" },
+                    { keymap = "d", mode = "n", desc = "Delete buffer (in buffer explorer)", source = "lua/config/utils/telescope.lua" },
+                    { keymap = "<C-e>", mode = "i", desc = "Scope to directory (with picker open)", source = "lua/plugins/ui-telescope.lua" },
+                    { keymap = "<C-e>", mode = "n", desc = "Scope to directory (with picker open)", source = "lua/plugins/ui-telescope.lua" },
 
                     -- Built in telescope keymaps
                     { keymap = "<C-n>", mode = "i", desc = "Next item", source = "Built in telescope default" },
