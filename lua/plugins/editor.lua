@@ -151,7 +151,7 @@ return {
                 -- let's name it after pwd + git branch
                 local name = vim.fn.getcwd()
                 local branch = vim.trim(vim.fn.system("git branch --show-current"))
-                if vim.v.shell_error == 0 then
+                if vim.v.shell_error == 0 and branch ~= "" then
                     return name .. ":" .. branch
                 else
                     return name

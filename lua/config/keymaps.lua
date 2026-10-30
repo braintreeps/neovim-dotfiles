@@ -87,14 +87,14 @@ map("n", "<C-u>", "<C-u>zz^", { desc = "Scroll Up" })
 -- new file
 map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
 -- create executables
-map("n", "<leader>fx", "<cmd>!chmod +x %<CR>", { silent = true, desc = "Make executable" })
+map("n", "<leader>fx", "<cmd>!chmod +x %:S<CR>", { silent = true, desc = "Make executable" })
 -- copy paths
-function copy_relative_path()
+local function copy_relative_path()
     local path = require("config.utils").relative_path()
     vim.fn.setreg("+", path)
     vim.notify("Copied relative path to clipboard: " .. path)
 end
-function copy_path()
+local function copy_path()
     local path = require("config.utils").path()
     vim.fn.setreg("+", path)
     vim.notify("Copied path to clipboard: " .. path)
@@ -102,30 +102,49 @@ end
 map("n", "<leader>fy", copy_relative_path, { desc = "Copy Relative Path" })
 map("n", "<leader>fY", copy_path, { desc = "Copy Path" })
 
-local function copy_github_pr_url()
-    -- Get remote URL
-    local handle = io.popen("git remote get-url origin 2>/dev/null")
-    local remote_url = handle:read("*a"):gsub("%s+$", "")
-    handle:close()
+local function repo_output(cmd)
+    local root = vim.fs.root(0, ".git")
+    if not root then
+        return nil
+    end
+    local result = vim.system(cmd, { cwd = root, text = true }):wait()
+    if result.code ~= 0 then
+        return nil
+    end
+    return vim.trim(result.stdout)
+end
 
-    if remote_url == "" then
+local function parse_github_remote(url)
+    local path = url:match("^%a[%w+.-]*://[^/]+/(.+)$") or url:match("^[^@/]+@[^:/]+:(.+)$")
+    if not path then
+        return nil
+    end
+    local owner, repo = path:match("^([^/]+)/(.+)$")
+    if not owner then
+        return nil
+    end
+    repo = repo:gsub("/$", ""):gsub("%.git$", "")
+    return owner, repo
+end
+
+local function copy_github_pr_url()
+    local remote_url = repo_output({ "git", "remote", "get-url", "origin" })
+
+    if not remote_url or remote_url == "" then
         vim.notify("No git remote found", vim.log.levels.ERROR)
         return
     end
 
     -- Extract owner/repo
-    local owner, repo = remote_url:match("[:/]([^/]+)/([^%.]+)%.git$")
+    local owner, repo = parse_github_remote(remote_url)
     if not owner or not repo then
         vim.notify("Could not parse remote URL", vim.log.levels.ERROR)
         return
     end
 
-    -- Get current branch
-    handle = io.popen("git rev-parse --abbrev-ref HEAD 2>/dev/null")
-    local branch = handle:read("*a"):gsub("%s+$", "")
-    handle:close()
+    local branch = repo_output({ "git", "branch", "--show-current" })
 
-    if branch == "" then
+    if not branch or branch == "" then
         vim.notify("No git branch found", vim.log.levels.ERROR)
         return
     end
@@ -138,27 +157,32 @@ end
 map("n", "<leader>gp", copy_github_pr_url, { desc = "Copy GitHub PR URL for current branch", silent = true })
 
 local function copy_merged_pr_url()
-    local file = vim.fn.expand("%")
     local line = vim.fn.line(".")
+    local file = vim.api.nvim_buf_get_name(0)
 
-    -- Get the commit SHA for the current line using git blame
-    local sha = vim.fn.systemlist(
-        "git blame -L "
-            .. vim.fn.line(".")
-            .. ","
-            .. vim.fn.line(".")
-            .. " "
-            .. vim.fn.expand("%")
-            .. ' --porcelain | cut -d " " -f 1'
-    )[1]
+    local sha = repo_output({ "git", "blame", "-L", line .. "," .. line, "--porcelain", "--", file })
+    sha = sha and sha:match("^(%x+)")
 
-    if sha and sha ~= "" then
-        -- Get the PR number associated with the commit SHA using gh
-        local pr_number = vim.fn.systemlist(
-            'gh pr list --search "' .. sha .. '" --state "merged" --json number --jq ".[0].number"'
-        )[1]
+    if sha then
+        local pr_number = repo_output({
+            "gh",
+            "pr",
+            "list",
+            "--search",
+            sha,
+            "--state",
+            "merged",
+            "--json",
+            "number",
+            "--jq",
+            ".[0].number // empty",
+        })
         if pr_number and pr_number ~= "" then
-            local pr_url = vim.fn.system("gh browse " .. pr_number .. " -n")
+            local pr_url = repo_output({ "gh", "browse", pr_number, "-n" })
+            if not pr_url then
+                vim.notify("Could not get the PR URL from gh", vim.log.levels.ERROR)
+                return
+            end
             vim.notify("PR URL: " .. pr_url)
             vim.fn.setreg("+", pr_url)
         else
