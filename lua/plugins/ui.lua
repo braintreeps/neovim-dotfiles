@@ -299,7 +299,7 @@ return {
             local updater_component = {}
             local has_updater, updater = pcall(require, "updater")
             if has_updater then
-                local updater_component = {
+                updater_component = {
                     function()
                         return updater.status.get_update_text("icon")
                     end,
