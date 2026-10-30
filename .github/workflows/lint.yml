@@ -54,8 +54,12 @@ jobs:
       - name: Show Neovim version
         run: nvim --version | head -n 1
 
+      # vim-go's build runs :GoInstallBinaries, which downloads Go tools and is not needed to load the config.
       - name: Install plugins
-        run: nvim --headless "+lua require('lazy.manage').install({ wait = true, show = false })" +qa
+        run: |
+          nvim --headless \
+            "+lua local build = require('lazy.manage.task.plugin').build; local skip = build.skip; build.skip = function(plugin, opts) return plugin.name == 'vim-go' or skip(plugin, opts) end" \
+            "+lua require('lazy.manage').install({ wait = true, show = false })" +qa
 
       - name: Start config
         run: |
@@ -79,4 +83,13 @@ jobs:
 
       - name: Check lockfiles
         run: nvim --headless -l scripts/ci/check_lockfiles.lua
+
+      - name: Regenerate cheatsheet in isolated config
+        working-directory: ${{ runner.temp }}/nvim-home/config/nvim
+        run: |
+          nvim --headless -l scripts/ci/cheatsheet.lua
+          cp CHEATSHEET.md "$GITHUB_WORKSPACE/CHEATSHEET.md"
+
+      - name: Check CHEATSHEET.md is up to date
+        run: git diff --exit-code CHEATSHEET.md
 
