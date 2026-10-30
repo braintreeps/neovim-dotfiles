@@ -102,6 +102,19 @@ end
 map("n", "<leader>fy", copy_relative_path, { desc = "Copy Relative Path" })
 map("n", "<leader>fY", copy_path, { desc = "Copy Path" })
 
+local function parse_github_remote(url)
+    local path = url:match("^%a[%w+.-]*://[^/]+/(.+)$") or url:match("^[^@/]+@[^:/]+:(.+)$")
+    if not path then
+        return nil
+    end
+    local owner, repo = path:match("^([^/]+)/(.+)$")
+    if not owner then
+        return nil
+    end
+    repo = repo:gsub("/$", ""):gsub("%.git$", "")
+    return owner, repo
+end
+
 local function copy_github_pr_url()
     -- Get remote URL
     local handle = io.popen("git remote get-url origin 2>/dev/null")
@@ -114,7 +127,7 @@ local function copy_github_pr_url()
     end
 
     -- Extract owner/repo
-    local owner, repo = remote_url:match("[:/]([^/]+)/([^%.]+)%.git$")
+    local owner, repo = parse_github_remote(remote_url)
     if not owner or not repo then
         vim.notify("Could not parse remote URL", vim.log.levels.ERROR)
         return
