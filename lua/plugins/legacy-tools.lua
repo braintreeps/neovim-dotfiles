@@ -50,9 +50,6 @@ return {
         end,
     },
     { "kshenoy/vim-signature", event = LazyFileEvents }, -- Used to add/remove/go-to marks
-    { "kana/vim-textobj-user", lazy = true }, -- used to create custom text objects; TODO mark for deletion
-    { "mattn/emmet-vim", lazy = true }, -- used for a expanding abbreviations/adding tags to HTML; TODO mark for deletion
-    { "mileszs/ack.vim", lazy = true }, -- used for searching. We use fzf + rg; TODO mark for deletion
     {
         "pgr0ss/vim-github-url",
         event = LazyFileEvents,
@@ -83,8 +80,6 @@ return {
     { "tpope/vim-surround" },
     { "tpope/vim-unimpaired" },
     { "tpope/vim-vinegar" },
-    { "vim-scripts/Align", lazy = true },
-    { "vim-scripts/matchit.zip", lazy = true },
     {
         "tweekmonster/wstrip.vim",
         ft = { "ruby", "lua", "java", "python", "c", "cpp", "sql", "puppet", "rust", "go" },

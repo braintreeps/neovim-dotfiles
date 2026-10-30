@@ -8,9 +8,7 @@ return {
         "dewyze/vim-ruby-block-helpers",
         ft = { "ruby" },
     },
-    { "vim-scripts/VimClojure", lazy = true },
     { "vim-scripts/groovyindent-unix", lazy = true },
-    { "vim-scripts/mako.vim", lazy = true },
     { "chase/vim-ansible-yaml", ft = { "ansible" } },
     { "cosmicbuffalo/vim-bats", ft = { "bash" } },
     { "elubow/cql-vim", lazy = true }, -- Cassandra syntax highlighting; can this be replaced with Treesitter?
