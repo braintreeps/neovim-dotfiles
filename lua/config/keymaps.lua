@@ -87,7 +87,7 @@ map("n", "<C-u>", "<C-u>zz^", { desc = "Scroll Up" })
 -- new file
 map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
 -- create executables
-map("n", "<leader>fx", "<cmd>!chmod +x %<CR>", { silent = true, desc = "Make executable" })
+map("n", "<leader>fx", "<cmd>!chmod +x %:S<CR>", { silent = true, desc = "Make executable" })
 -- copy paths
 function copy_relative_path()
     local path = require("config.utils").relative_path()
