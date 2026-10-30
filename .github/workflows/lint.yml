@@ -65,7 +65,7 @@ jobs:
 
       - name: Run checkhealth without crashing
         run: |
-          nvim --headless "+checkhealth dotfiles" "+w! $RUNNER_TEMP/health.txt" +qa
+          nvim --headless "+checkhealth braintree-neovim" "+w! $RUNNER_TEMP/health.txt" +qa
           test -s "$RUNNER_TEMP/health.txt"
           if grep -Eq "Error executing|E5108|stack traceback" "$RUNNER_TEMP/health.txt"; then
             exit 1

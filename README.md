@@ -98,7 +98,7 @@ nvim
 ```
 
 > [!IMPORTANT]
-> After installing, run `:checkhealth dotfiles` and resolve anything it reports
+> After installing, run `:checkhealth braintree-neovim` and resolve anything it reports
 > as an error. It checks your Neovim version, required tools, language server
 > configuration, lockfiles, treesitter parsers, personal overlay, and
 > clipboard. Every warning and error includes advice on how to fix it. Run it

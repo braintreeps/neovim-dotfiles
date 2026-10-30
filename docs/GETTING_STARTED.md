@@ -8,7 +8,7 @@ Welcome to Neovim! This guide aims to get you familiar with the Braintree Neovim
 > Some essential default vim commands are still called out below (marked with ^! like `<foo>`<sup>!</sup>), but if you're a total vim noob, you should spend some time learning the vim motion basics before diving into this guide about Braintree's customized Neovim config.
 
 > [!IMPORTANT]
-> Before anything else, run `:checkhealth dotfiles` to confirm everything is configured properly. Fix anything it reports as an error — each warning and error includes advice.
+> Before anything else, run `:checkhealth braintree-neovim` to confirm everything is configured properly. Fix anything it reports as an error — each warning and error includes advice.
 
 ## 🎯 Your First 5 Minutes
 
@@ -223,7 +223,7 @@ This Neovim config is totally hackable! Check out the [neovim-dotfiles-personal.
 
 ## 🆘 When You're Stuck
 
-- **Something not working?** Run `:checkhealth dotfiles` and follow the advice it gives
+- **Something not working?** Run `:checkhealth braintree-neovim` and follow the advice it gives
 - **Forgot a shortcut?** Press `<Leader>` (space) and browse the menu or search for it with `<Leader>sk`
 - **Code not working?** Use `[d` / `]d` to jump between errors, then `<Leader>ca` for fixes
 - **Can't find something?** Try `<Leader>fg` to search for text

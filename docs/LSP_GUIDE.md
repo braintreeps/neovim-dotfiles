@@ -130,7 +130,7 @@ opts = {
 ## Troubleshooting
 
 ### LSP Not Working?
-1. Run `:checkhealth dotfiles`. It validates the `server_defs` and `filetype_tooling` contract and reports servers that are named but not defined
+1. Run `:checkhealth braintree-neovim`. It validates the `server_defs` and `filetype_tooling` contract and reports servers that are named but not defined
 2. Check if server is installed: `<Leader>cm` and make sure your server is in the "Installed" section
 3. Check if server is running: `:LspInfo`
 4. Restart LSP: `:LspRestart`
