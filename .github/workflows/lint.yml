@@ -54,6 +54,23 @@ jobs:
       - name: Show Neovim version
         run: nvim --version | head -n 1
 
+      - name: Install plugins
+        run: nvim --headless "+lua require('lazy.manage').install({ wait = true, show = false })" +qa
+
+      - name: Start config
+        run: |
+          nvim --headless +qa 2> "$RUNNER_TEMP/startup.err"
+          cat "$RUNNER_TEMP/startup.err"
+          test ! -s "$RUNNER_TEMP/startup.err"
+
+      - name: Run checkhealth without crashing
+        run: |
+          nvim --headless "+checkhealth dotfiles" "+w! $RUNNER_TEMP/health.txt" +qa
+          test -s "$RUNNER_TEMP/health.txt"
+          if grep -Eq "Error executing|E5108|stack traceback" "$RUNNER_TEMP/health.txt"; then
+            exit 1
+          fi
+
       - name: Load config modules
         run: nvim --headless -l scripts/ci/smoke.lua
 
