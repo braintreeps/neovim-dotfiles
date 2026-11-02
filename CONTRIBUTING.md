@@ -24,7 +24,13 @@ stylua --check .
 
 Indentation rules for Lua, Markdown, and JSON are in `.editorconfig`.
 
-The help file is `doc/braintree-neovim.txt`, read with `:help braintree-neovim`. Neovim only finds its tags in `doc/tags`, which is committed. After editing the help file, regenerate it with `:helptags doc` from the repository root and commit the result.
+The help file is `doc/braintree-neovim.txt`, read with `:help braintree-neovim`. Neovim only finds its tags in `doc/tags`, which is committed, so regenerate it whenever you edit the help file. From the repository root, run `:helptags doc` inside Neovim, or run this from a shell:
+
+```sh
+nvim --clean --headless -c "helptags doc" -c q
+```
+
+Then commit `doc/tags` with the help file change, and check it with `:help braintree-neovim`.
 
 ## Checking your changes
 
