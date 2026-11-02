@@ -24,7 +24,7 @@
   "groovyindent-unix": { "branch": "master", "commit": "d6fca576272cc13fd747ff47a82b75b9e9586866" },
   "heirline.nvim": { "branch": "master", "commit": "fae936abb5e0345b85c3a03ecf38525b0828b992" },
   "indent-blankline.nvim": { "branch": "master", "commit": "005b56001b2cb30bfa61b7986bc50657816ba4ba" },
-  "inkline.nvim": { "branch": "main", "commit": "d02b4c57ae871ad83f1bee7fa3b5d79808a5afcd" },
+  "inkline.nvim": { "branch": "main", "commit": "0ff5f36d178d816e749eb6e657e4bbea4d3bf402" },
   "lazy.nvim": { "branch": "main", "commit": "85c7ff3711b730b4030d03144f6db6375044ae82" },
   "lazy_jumpliner_recipe": { "branch": "main", "commit": "b686fdb444552f13e40716da2cff535a2d204424" },
   "lazy_ufo_recipe": { "branch": "main", "commit": "d14265c7838582ea580ea83b39f43ff7c1397cc5" },
