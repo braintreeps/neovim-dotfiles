@@ -67,7 +67,7 @@ jobs:
         run: |
           nvim --headless "+checkhealth braintree-neovim" "+w! $RUNNER_TEMP/health.txt" +qa
           test -s "$RUNNER_TEMP/health.txt"
-          if grep -Eq "Error executing|E5108|stack traceback" "$RUNNER_TEMP/health.txt"; then
+          if grep -Eq "Failed to run healthcheck|Error executing|E5108|stack traceback" "$RUNNER_TEMP/health.txt"; then
             exit 1
           fi
 
