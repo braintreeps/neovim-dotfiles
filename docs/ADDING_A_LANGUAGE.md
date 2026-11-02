@@ -51,4 +51,4 @@ If a Mason-managed formatter must be reproducible across machines, add its packa
 
 ## Check the result
 
-Open a file of the new filetype. Mason installs the server in the background. `<Leader>ci` shows the attached server, and `:ConformInfo` shows the formatter. Run `stylua --check .` before committing.
+Open a file of the new filetype. Mason installs the server in the background. `<Leader>ci` shows the attached server, and `:ConformInfo` shows the formatter. Then run `:checkhealth braintree-neovim`. It reports any server in `filetype_tooling` that is missing from `server_defs`, and any `locked_packages` entry that is missing from `mason-lock.json`. Run `stylua --check .` before committing.

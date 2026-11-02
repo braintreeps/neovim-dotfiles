@@ -1,17 +1,18 @@
-*dotfiles.txt*  Maintainer notes for the Braintree Neovim configuration
+*braintree-neovim.txt*  Maintainer notes for the Braintree Neovim config
 
 ==============================================================================
-CONTENTS                                                     *dotfiles-contents*
+CONTENTS                                           *braintree-neovim-contents*
 
-    1. Overview ............................ |dotfiles|
-    2. Load order .......................... |dotfiles-load-order|
-    3. Plugin specs ........................ |dotfiles-plugins|
-    4. Personal overlay .................... |dotfiles-personal|
-    5. Lockfiles ........................... |dotfiles-lockfiles|
-    6. Adding a language ................... |dotfiles-language|
+    1. Overview ........................... |braintree-neovim|
+    2. Load order ......................... |braintree-neovim-load-order|
+    3. Plugin specs ....................... |braintree-neovim-plugins|
+    4. Personal overlay ................... |braintree-neovim-personal|
+    5. Lockfiles .......................... |braintree-neovim-lockfiles|
+    6. Adding a language .................. |braintree-neovim-language|
+    7. Checking your setup ................ |braintree-neovim-health|
 
 ==============================================================================
-1. Overview                                                         *dotfiles*
+1. Overview                                                 *braintree-neovim*
 
 `init.lua` loads options, keymaps, and lazy.nvim, then imports every plugin
 spec in `lua/plugins/`. Helpers live in `lua/config/utils.lua`, and its
@@ -21,7 +22,7 @@ Longer write-ups are in `docs/ARCHITECTURE.md`, `docs/ADDING_A_LANGUAGE.md`,
 and `CONTRIBUTING.md`.
 
 ==============================================================================
-2. Load order                                                *dotfiles-load-order*
+2. Load order                                    *braintree-neovim-load-order*
 
 `init.lua` runs these in order:
 
@@ -34,7 +35,7 @@ and `CONTRIBUTING.md`.
 Each personal file is loaded only if it exists.
 
 ==============================================================================
-3. Plugin specs                                                *dotfiles-plugins*
+3. Plugin specs                                     *braintree-neovim-plugins*
 
 Specs live in `lua/plugins/`, grouped by theme: `coding.lua`, `editor.lua`,
 `ui.lua`, `lsp.lua`, `treesitter.lua`, `formatting.lua`, `colorscheme.lua`,
@@ -46,7 +47,7 @@ Every spec declares a trigger: `event`, `cmd`, `ft`, or `keys`. A spec with
 Format with `stylua`. CI runs `stylua --check .`.
 
 ==============================================================================
-4. Personal overlay                                          *dotfiles-personal*
+4. Personal overlay                                *braintree-neovim-personal*
 
 `lua/personal/` is gitignored and optional. Its three hooks run in this order:
 
@@ -58,7 +59,7 @@ A personal spec for a plugin that already exists in `lua/plugins/` merges with
 the base spec, so it can extend `opts` or toggle `enabled`.
 
 ==============================================================================
-5. Lockfiles                                                 *dotfiles-lockfiles*
+5. Lockfiles                                      *braintree-neovim-lockfiles*
 
 `lazy-lock.json` pins plugin commits. super_lazy.nvim manages it and keeps a
 separate lockfile for `lua/personal`.
@@ -69,7 +70,7 @@ packages in `locked_packages`, set in `lua/plugins/lsp.lua`.
 Run `:Lazy` to update plugins, and commit the lockfile change with the update.
 
 ==============================================================================
-6. Adding a language                                          *dotfiles-language*
+6. Adding a language                               *braintree-neovim-language*
 
 Up to three edits, described in `docs/ADDING_A_LANGUAGE.md`:
 
@@ -78,5 +79,15 @@ Up to three edits, described in `docs/ADDING_A_LANGUAGE.md`:
     `lua/plugins/formatting.lua`           `formatters_by_ft`
 
 Every server named in `filetype_tooling` must be a key in `server_defs`.
+
+==============================================================================
+7. Checking your setup                               *braintree-neovim-health*
+
+Run `:checkhealth braintree-neovim` after installing, after updating, and when
+something does not work. It checks the Neovim version, required and optional
+executables, that every server in `filetype_tooling` is a key in
+`server_defs`, that `lazy-lock.json` and `mason-lock.json` match the specs,
+treesitter parsers, the personal overlay, and the clipboard provider. Each
+warning and error comes with advice. CI runs the same check.
 
  vim:tw=78:ts=8:ft=help:norl:

@@ -24,6 +24,12 @@ stylua --check .
 
 Indentation rules for Lua, Markdown, and JSON are in `.editorconfig`.
 
+The help file is `doc/braintree-neovim.txt`, read with `:help braintree-neovim`. Neovim only finds its tags in `doc/tags`, which is committed. After editing the help file, regenerate it with `:helptags doc` from the repository root and commit the result.
+
+## Checking your changes
+
+Run `:checkhealth braintree-neovim` in Neovim before opening a pull request. It checks the language server configuration, the lockfiles, the treesitter parsers, and the personal overlay, and gives advice for every warning and error. The `smoke` job in `.github/workflows/lint.yml` runs the same check.
+
 ## Commits and pull requests
 
 Use conventional commits for both commit subjects and PR titles, for example `feat(treesitter): Enable C parsing` or `fix: Fix Python LSP`. Make each commit one logical change, and describe the why in the body.

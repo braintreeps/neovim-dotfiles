@@ -52,3 +52,7 @@ Two lockfiles pin plugins and tools, and the personal overlay keeps its own plug
 - **`folke/lazy.nvim`** is itself pinned to stable releases in `lua/plugins/utils.lua` and is excluded from updates.
 
 Run `:Lazy` to update plugins, and commit the changed lockfile with the change that needed it.
+
+## Checking the configuration
+
+`:checkhealth braintree-neovim` runs `lua/braintree-neovim/health.lua`. It checks the Neovim version, required and optional executables, the `server_defs` and `filetype_tooling` contract, both lockfiles, the treesitter parsers, the personal overlay, and the clipboard provider. The contract and lockfile checks live in `lua/config/utils/lsp_contract.lua` and `lua/config/utils/lockfiles.lua`, so the `scripts/ci/` scripts and the health check share one implementation. Run it after installing, after updating, and when something does not work.
