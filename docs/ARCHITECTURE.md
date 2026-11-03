@@ -22,7 +22,7 @@ Existence checks use `Utils.config_path_exists` in `lua/config/utils.lua`, so a 
 | `init.lua` | Entry point and load order. |
 | `lua/config/` | Options, keymaps, autocommands, user commands, and the statusline setup (`heirline.lua`). |
 | `lua/config/utils.lua` | Helper module. Submodules in `lua/config/utils/` load on first access, for example `Utils.lsp` and `Utils.treesitter`. |
-| `lua/plugins/` | Plugin specs, grouped by theme (`coding.lua`, `editor.lua`, `ui.lua`, `lsp.lua`, `treesitter.lua`, `formatting.lua`, and others). `legacy.lua` holds traditional Vim plugins. |
+| `lua/plugins/` | Plugin specs, grouped by theme (`coding.lua`, `editor.lua`, `ui-*.lua`, `lsp.lua`, `treesitter.lua`, `formatting.lua`, and others). `legacy-tools.lua` and `legacy-filetypes.lua` hold traditional Vim plugins. |
 | `ftplugin/`, `ftdetect/` | Per-filetype options and filetype detection. |
 | `after/queries/` | Treesitter query overrides. |
 | `scripts/` | Maintenance scripts, such as `headless-bootstrap.lua`. |
@@ -31,14 +31,14 @@ Existence checks use `Utils.config_path_exists` in `lua/config/utils.lua`, so a 
 
 ## Where a new plugin spec goes
 
-Add it to the `lua/plugins/` file that matches its purpose: `coding.lua` for completion and snippets, `editor.lua` for navigation and git, `ui.lua` for appearance, `lsp.lua` for language servers, `treesitter.lua` for parser-based features, `formatting.lua` for formatters, and `utils.lua` for general helpers. Every file returns a list of specs, and `lazy.nvim` merges them. Do not add a new file unless no existing theme fits. See [CONTRIBUTING.md](../CONTRIBUTING.md) for spec conventions and [ADDING_A_LANGUAGE.md](./ADDING_A_LANGUAGE.md) for language support.
+Add it to the `lua/plugins/` file that matches its purpose: `coding.lua` for completion and snippets, `editor.lua` for navigation and git, `ui-notifications.lua`, `ui-statusline.lua`, `ui-telescope.lua`, or `ui-winbar.lua` for appearance, `lsp.lua` for language servers, `treesitter.lua` for parser-based features, `formatting.lua` for formatters, and `utils.lua` for general helpers. Every file returns a list of specs, and `lazy.nvim` merges them. Do not add a new file unless no existing theme fits. See [CONTRIBUTING.md](../CONTRIBUTING.md) for spec conventions and [ADDING_A_LANGUAGE.md](./ADDING_A_LANGUAGE.md) for language support.
 
 ## Personal overlay contract
 
 The overlay has three hooks, all optional, and they run in this order:
 
 1. `lua/personal/options.lua` runs right after `config.options` and before keymaps and plugins.
-2. `lua/personal/plugins/` is imported at spec index 2. Specs there merge with base specs of the same plugin name, so `opts` can be extended and `enabled` toggled. Several base specs invite this, for example the `enabled = false` entries in `lua/plugins/ui.lua` and `lua/plugins/coding.lua`.
+2. `lua/personal/plugins/` is imported at spec index 2. Specs there merge with base specs of the same plugin name, so `opts` can be extended and `enabled` toggled. Several base specs invite this, for example the `enabled = false` entries in `lua/plugins/ui-notifications.lua` and `lua/plugins/coding.lua`.
 3. `lua/personal/init.lua` runs last, after plugins are set up and after `config.usercmds` and `config.autocmds`.
 
 Base code must never `require` a personal module unconditionally. Guard it with `Utils.config_path_exists`, as `init.lua` does. The `lua/personal` directory is listed in `.gitignore`, so it is never committed to this repository.

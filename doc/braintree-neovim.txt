@@ -38,8 +38,10 @@ Each personal file is loaded only if it exists.
 3. Plugin specs                                     *braintree-neovim-plugins*
 
 Specs live in `lua/plugins/`, grouped by theme: `coding.lua`, `editor.lua`,
-`ui.lua`, `lsp.lua`, `treesitter.lua`, `formatting.lua`, `colorscheme.lua`,
-`utils.lua`, `java.lua`, and `legacy.lua`.
+`ui-notifications.lua`, `ui-statusline.lua`, `ui-telescope.lua`,
+`ui-winbar.lua`, `lsp.lua`, `treesitter.lua`, `formatting.lua`,
+`colorscheme.lua`, `utils.lua`, `java.lua`, `legacy-tools.lua`, and
+`legacy-filetypes.lua`.
 
 Every spec declares a trigger: `event`, `cmd`, `ft`, or `keys`. A spec with
 `lazy = false` needs a justification in its commit message or PR text.
