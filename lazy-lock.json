@@ -13,7 +13,7 @@
   "cheatsheet_generator.nvim": { "branch": "main", "commit": "d966cb40d5d087e061ace54bcddcc1a4551d15a4" },
   "conform.nvim": { "branch": "master", "commit": "c2526f1cde528a66e086ab1668e996d162c75f4f" },
   "cql-vim": { "branch": "master", "commit": "6f61df5a633c3a91edea7bcb5d5772648df19d1a" },
-  "dropbar.nvim": { "branch": "master", "commit": "ce202248134e3949aac375fd66c28e5207785b10" },
+  "dropbar.nvim": { "branch": "master", "commit": "808ba31cde89aec8833e9789f5e04557cd31c9e1" },
   "emmet-vim": { "branch": "master", "commit": "92ef2f74f4093edc99db5e9e4cf7e40116a85bd6" },
   "eyeliner.nvim": { "branch": "main", "commit": "108f4e39029a8bfc102e75cd3f47b454466ba6c7", "source": "lazy_jumpliner_recipe" },
   "fidget.nvim": { "branch": "main", "commit": "7fa433a83118a70fe24c1ce88d5f0bd3453c0970" },
