@@ -13,6 +13,9 @@ local generator = require("cheatsheet_generator")
 local spec = dofile(root .. "/lua/plugins/cheatsheet_generator.lua")[1]
 generator.setup(spec.opts)
 
+local path = root .. "/CHEATSHEET.md"
+vim.fn.delete(path)
+
 -- Runs the external script directly: generator.generate() hard-codes ~/.config/nvim as the working directory.
 local result = vim.system({
     vim.v.progpath,
@@ -24,11 +27,11 @@ local result = vim.system({
     plugin_dir .. "/lua/cheatsheet_generator/external_script.lua",
     vim.json.encode(generator.get_config()),
 }, { cwd = root, text = true }):wait()
-if result.code ~= 0 then
+-- external_script.lua exits 0 even when it prints an error, so also require the file it should have written.
+if result.code ~= 0 or result.stdout:find("Error:", 1, true) or vim.fn.filereadable(path) == 0 then
     error("cheatsheet generation failed:\n" .. result.stdout .. result.stderr)
 end
 
-local path = root .. "/CHEATSHEET.md"
 local kept = {}
 local lines = vim.fn.readfile(path)
 local i = 1
