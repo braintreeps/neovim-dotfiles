@@ -107,6 +107,9 @@ local function repo_output(cmd)
     if not root then
         return nil
     end
+    if vim.fn.executable(cmd[1]) ~= 1 then
+        return nil
+    end
     local result = vim.system(cmd, { cwd = root, text = true }):wait()
     if result.code ~= 0 then
         return nil
