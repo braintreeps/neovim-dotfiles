@@ -28,7 +28,10 @@ function M.map(actions, fallback)
                 end
             end
         end
-        return type(fallback) == "function" and fallback() or fallback
+        if type(fallback) == "function" then
+            return fallback()
+        end
+        return fallback
     end
 end
 

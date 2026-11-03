@@ -16,7 +16,7 @@ M.SwitchColorschemeKeyMap = { "<leader>uC", M.open_colorscheme_picker, desc = "C
 function M.current_colorscheme(persisted)
     local current = vim.g.colors_name
 
-    if require("config.utils.lazy").get_plugin("telescope-colorscheme-persist") then
+    if require("config.utils.lazy").get_plugin("telescope-colorscheme-persist.nvim") then
         local current_persisted = require("telescope-colorscheme-persist").get_colorscheme()
 
         if persisted then
