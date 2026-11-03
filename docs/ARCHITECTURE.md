@@ -41,6 +41,16 @@ The overlay has three hooks, all optional, and they run in this order:
 2. `lua/personal/plugins/` is imported at spec index 2. Specs there merge with base specs of the same plugin name, so `opts` can be extended and `enabled` toggled. Several base specs invite this, for example the `enabled = false` entries in `lua/plugins/ui-notifications.lua` and `lua/plugins/coding.lua`.
 3. `lua/personal/init.lua` runs last, after plugins are set up and after `config.usercmds` and `config.autocmds`.
 
+To start an overlay, use the [personal scaffold](https://github.com/braintreeps/neovim-dotfiles-personal.scaffold). It must be installed at `lua/personal` inside the configuration directory, and that directory must not already exist:
+
+```sh
+config_dir=${XDG_CONFIG_HOME:-$HOME/.config}
+mkdir -p "$config_dir/nvim/lua"
+git clone https://github.com/braintreeps/neovim-dotfiles-personal.scaffold.git "$config_dir/nvim/lua/personal"
+```
+
+To keep your own remote, use the scaffold as a template and clone your copy instead. Its examples are commented out; uncomment the ones you want.
+
 Base code must never `require` a personal module unconditionally. Guard it with `Utils.config_path_exists`, as `init.lua` does. The `lua/personal` directory is listed in `.gitignore`, so it is never committed to this repository.
 
 ## Lockfiles

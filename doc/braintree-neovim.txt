@@ -60,6 +60,10 @@ Format with `stylua`. CI runs `stylua --check .`.
 A personal spec for a plugin that already exists in `lua/plugins/` merges with
 the base spec, so it can extend `opts` or toggle `enabled`.
 
+Start an overlay from the personal scaffold at
+https://github.com/braintreeps/neovim-dotfiles-personal.scaffold. Setup
+steps are in `docs/ARCHITECTURE.md`.
+
 ==============================================================================
 5. Lockfiles                                      *braintree-neovim-lockfiles*
 
