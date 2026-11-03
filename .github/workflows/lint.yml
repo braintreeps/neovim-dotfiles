@@ -54,11 +54,13 @@ jobs:
       - name: Show Neovim version
         run: nvim --version | head -n 1
 
-      # vim-go's build runs :GoInstallBinaries, which downloads Go tools and is not needed to load the config.
+      # init.lua installs missing plugins during startup, so lazy.nvim has to exist and the build skip
+      # has to be loaded before it runs. vim-go's build downloads Go tools and is not needed to load the config.
       - name: Install plugins
         run: |
-          nvim --headless \
-            "+lua local build = require('lazy.manage.task.plugin').build; local skip = build.skip; build.skip = function(plugin, opts) return plugin.name == 'vim-go' or skip(plugin, opts) end" \
+          git clone --filter=blob:none --branch=stable https://github.com/folke/lazy.nvim.git \
+            "$XDG_DATA_HOME/nvim/lazy/lazy.nvim"
+          nvim --headless --cmd "luafile scripts/ci/skip_build.lua" \
             "+lua require('lazy.manage').install({ wait = true, show = false })" +qa
 
       - name: Start config
