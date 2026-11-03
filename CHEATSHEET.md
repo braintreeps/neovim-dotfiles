@@ -276,7 +276,7 @@ This cheatsheet is automatically generated. It includes all keymaps from:
 | `<M-h>` | `i` | Show Documentation/Hide Documentation | [`lua/plugins/coding.lua:165`](https://github.com/braintreeps/neovim-dotfiles/blob/main/lua/plugins/coding.lua#L165) |
 | `<M-j>` | `i` | Show/Select Next | [`lua/plugins/coding.lua:166`](https://github.com/braintreeps/neovim-dotfiles/blob/main/lua/plugins/coding.lua#L166) |
 | `<M-k>` | `i` | Select Prev | [`lua/plugins/coding.lua:167`](https://github.com/braintreeps/neovim-dotfiles/blob/main/lua/plugins/coding.lua#L167) |
-| `<M-l>` | `i` | Select And accept/Utils.cmp.map({ Ai Accept | [`lua/plugins/coding.lua:168`](https://github.com/braintreeps/neovim-dotfiles/blob/main/lua/plugins/coding.lua#L168) |
+| `<M-l>` | `i` | Select And accept | [`lua/plugins/coding.lua:168`](https://github.com/braintreeps/neovim-dotfiles/blob/main/lua/plugins/coding.lua#L168) |
 | `<M-;>` | `i` | Cancel | [`lua/plugins/coding.lua:169`](https://github.com/braintreeps/neovim-dotfiles/blob/main/lua/plugins/coding.lua#L169) |
 | `<Tab>` | `i` | Fallback | [`lua/plugins/coding.lua:174`](https://github.com/braintreeps/neovim-dotfiles/blob/main/lua/plugins/coding.lua#L174) |
 
@@ -672,10 +672,10 @@ This cheatsheet is automatically generated. It includes all keymaps from:
 | `<leader>fx` | `n` | Make executable | [`lua/config/keymaps.lua:90`](https://github.com/braintreeps/neovim-dotfiles/blob/main/lua/config/keymaps.lua#L90) |
 | `<leader>fy` | `n` | Copy Relative Path | [`lua/config/keymaps.lua:102`](https://github.com/braintreeps/neovim-dotfiles/blob/main/lua/config/keymaps.lua#L102) |
 | `<leader>fY` | `n` | Copy Path | [`lua/config/keymaps.lua:103`](https://github.com/braintreeps/neovim-dotfiles/blob/main/lua/config/keymaps.lua#L103) |
-| `<leader>gp` | `n` | Copy GitHub PR URL for current branch | [`lua/config/keymaps.lua:138`](https://github.com/braintreeps/neovim-dotfiles/blob/main/lua/config/keymaps.lua#L138) |
-| `<leader>gP` | `n` | Copy GitHub PR URL for line blame (gh cli) | [`lua/config/keymaps.lua:172`](https://github.com/braintreeps/neovim-dotfiles/blob/main/lua/config/keymaps.lua#L172) |
-| `<leader>uT` | `n` | Toggle Treesitter Highlighting | [`lua/config/keymaps.lua:175`](https://github.com/braintreeps/neovim-dotfiles/blob/main/lua/config/keymaps.lua#L175) |
-| `<leader>cc` | `n` `v` | Comment the current line/Comment the highlighted lines | [`lua/config/keymaps.lua:185`](https://github.com/braintreeps/neovim-dotfiles/blob/main/lua/config/keymaps.lua#L185) |
+| `<leader>gp` | `n` | Copy GitHub PR URL for current branch | [`lua/config/keymaps.lua:160`](https://github.com/braintreeps/neovim-dotfiles/blob/main/lua/config/keymaps.lua#L160) |
+| `<leader>gP` | `n` | Copy GitHub PR URL for line blame (gh cli) | [`lua/config/keymaps.lua:199`](https://github.com/braintreeps/neovim-dotfiles/blob/main/lua/config/keymaps.lua#L199) |
+| `<leader>uT` | `n` | Toggle Treesitter Highlighting | [`lua/config/keymaps.lua:202`](https://github.com/braintreeps/neovim-dotfiles/blob/main/lua/config/keymaps.lua#L202) |
+| `<leader>cc` | `n` `v` | Comment the current line/Comment the highlighted lines | [`lua/config/keymaps.lua:212`](https://github.com/braintreeps/neovim-dotfiles/blob/main/lua/config/keymaps.lua#L212) |
 | `<tab>` | `v` | Align markdown table | [`lua/plugins/coding.lua:209`](https://github.com/braintreeps/neovim-dotfiles/blob/main/lua/plugins/coding.lua#L209) |
 | `<Bar>` | `n` | Select and align markdown table | [`lua/plugins/coding.lua:215`](https://github.com/braintreeps/neovim-dotfiles/blob/main/lua/plugins/coding.lua#L215) |
 
