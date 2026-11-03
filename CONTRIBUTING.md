@@ -4,9 +4,11 @@ Keep changes small, formatted with `stylua`, and described in the commit message
 
 ## Plugin specs
 
-Every plugin spec in `lua/plugins/` declares what loads it: `event`, `cmd`, `ft`, or `keys`. For file-opening triggers, reuse `Utils.lazy.LazyFileEvents` from `lua/config/utils/lazy.lua`.
+New plugin specs in `lua/plugins/` declare what loads them: `event`, `cmd`, `ft`, or `keys`. For file-opening triggers, reuse `Utils.lazy.LazyFileEvents` from `lua/config/utils/lazy.lua`. Some existing specs predate this convention.
 
-`lazy = false` needs a reason a maintainer can verify, such as a colorscheme that must apply at startup or a plugin that must register state before any trigger can fire. Existing examples are in `lua/plugins/colorscheme.lua` and `lua/plugins/utils.lua`. State the reason in the commit message or PR text.
+`lazy = false` needs a reason a maintainer can verify, such as a colorscheme that must apply at startup or a plugin that must register state before any trigger can fire. Examples are in `lua/plugins/colorscheme.lua` and `lua/plugins/utils.lua`. State the reason in the commit message or PR text.
+
+A spec with no trigger also loads at startup. `init.lua` does not set `defaults.lazy`, so lazy.nvim's default of `lazy = false` applies, and the spec needs the same justification as an explicit `lazy = false`.
 
 Put the spec in the file that matches its purpose (see [Where a new plugin spec goes](./docs/ARCHITECTURE.md#where-a-new-plugin-spec-goes)). Do not edit `lazy-lock.json` by hand. Update it through `:Lazy`, and commit it with the change that required it.
 
