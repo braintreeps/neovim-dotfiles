@@ -38,6 +38,16 @@ Then commit `doc/tags` with the help file change, and check it with `:help brain
 
 Run `:checkhealth braintree-neovim` in Neovim before opening a pull request. It checks the language server configuration, the lockfiles, the treesitter parsers, and the personal overlay, and gives advice for every warning and error. The `smoke` job in `.github/workflows/lint.yml` runs the same check.
 
+## Regenerating the cheatsheet
+
+`CHEATSHEET.md` is generated from the keymaps and plugin specs, and the `smoke` job fails if it is out of date. Regenerate it after changing a keymap, or any file it links to, with the generator's script and commit the result:
+
+```sh
+nvim --headless -l scripts/ci/cheatsheet.lua
+```
+
+Prefer the script to `:CheatsheetGenerate` and the pre-commit hook from `:CheatsheetInstallHook`. Those always read the keymaps from `~/.config/nvim` rather than the current checkout, and they leave off the final newline, so the file can fail the check.
+
 ## Commits and pull requests
 
 Use conventional commits for both commit subjects and PR titles, for example `feat(treesitter): Enable C parsing` or `fix: Fix Python LSP`. Make each commit one logical change, and describe the why in the body.
