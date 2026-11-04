@@ -1,5 +1,4 @@
 -- Regenerates CHEATSHEET.md in the repo root with the cheatsheet_generator.nvim install under stdpath("data").
--- The generator stamps today's date into the header, so that line is dropped to keep the output stable.
 -- Run from the repo root: nvim --headless -l scripts/ci/cheatsheet.lua
 local root = vim.fn.fnamemodify(debug.getinfo(1, "S").source:sub(2), ":p:h:h:h")
 local plugin_dir = vim.fn.stdpath("data") .. "/lazy/cheatsheet_generator.nvim"
@@ -32,16 +31,6 @@ if result.code ~= 0 or result.stdout:find("Error:", 1, true) or vim.fn.filereada
     error("cheatsheet generation failed:\n" .. result.stdout .. result.stderr)
 end
 
-local kept = {}
-local lines = vim.fn.readfile(path)
-local i = 1
-while i <= #lines do
-    if lines[i]:match("^Up to date as of: ") then
-        i = i + ((lines[i + 1] == "") and 2 or 1)
-    else
-        kept[#kept + 1] = lines[i]
-        i = i + 1
-    end
-end
-vim.fn.writefile(kept, path)
+-- The generator writes no final newline; a readfile/writefile round trip adds one, as .editorconfig expects.
+vim.fn.writefile(vim.fn.readfile(path), path)
 print("Regenerated " .. path)

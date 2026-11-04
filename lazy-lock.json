@@ -7,7 +7,7 @@
   "blink-emoji.nvim": { "branch": "master", "commit": "066013e4c98a9318408ee3f1ca2dbcb6fa3e4c06" },
   "blink.cmp": { "branch": "main", "commit": "78336bc89ee5365633bcf754d93df01678b5c08f" },
   "catppuccin": { "branch": "main", "commit": "beaf41a30c26fd7d6c386d383155cbd65dd554cd" },
-  "cheatsheet_generator.nvim": { "branch": "main", "commit": "d966cb40d5d087e061ace54bcddcc1a4551d15a4" },
+  "cheatsheet_generator.nvim": { "branch": "main", "commit": "def820f5e08143d82efe4dc341680db12ddf4fd6" },
   "conform.nvim": { "branch": "master", "commit": "c2526f1cde528a66e086ab1668e996d162c75f4f" },
   "cql-vim": { "branch": "master", "commit": "6f61df5a633c3a91edea7bcb5d5772648df19d1a" },
   "dropbar.nvim": { "branch": "master", "commit": "808ba31cde89aec8833e9789f5e04557cd31c9e1" },

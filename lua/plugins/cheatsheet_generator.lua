@@ -6,6 +6,7 @@ return {
             config_keymap_files = { "lua/config/keymaps.lua" },
             output = {
                 title = "Braintree Keymap Cheatsheet",
+                include_date = false,
                 runtime_note = {
                     keymap_search = "<leader>sk",
                 },

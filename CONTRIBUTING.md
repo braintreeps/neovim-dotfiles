@@ -46,7 +46,7 @@ Run `:checkhealth braintree-neovim` in Neovim before opening a pull request. It 
 nvim --headless -l scripts/ci/cheatsheet.lua
 ```
 
-Do not use `:CheatsheetGenerate` or the pre-commit hook from `:CheatsheetInstallHook` for this. They add an `Up to date as of:` line that the script removes, so the file would fail the check.
+Prefer the script to `:CheatsheetGenerate` and the pre-commit hook from `:CheatsheetInstallHook`. Those always read the keymaps from `~/.config/nvim` rather than the current checkout, and they leave off the final newline, so the file can fail the check.
 
 ## Commits and pull requests
 
