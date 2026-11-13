@@ -27,7 +27,8 @@ This config comes pre-configured with treesitter parsers for common languages in
 - **Ruby**: `ruby`, `embedded_template`
 - **Editor and docs**: `lua`, `luadoc`, `markdown`, `markdown_inline`, `vim`, `vimdoc`
 - **Git and SSH files**: `diff`, `git_config`, `git_rebase`, `gitignore`, `ssh_config`
-- **Other**: `python`, `sql`, `http`
+- **SQL**: `snowflake_sql` (used for every `sql` buffer, see below), `sql`
+- **Other**: `python`, `http`
 
 The source of truth is `ensure_installed` in `lua/config/utils/treesitter.lua`.
 
@@ -90,6 +91,31 @@ Popular parsers include:
 - **React JSX**: `tsx`
 - **Go**: `go`
 - **C/C++**: `c`, `cpp`
+
+### Snowflake SQL
+
+Buffers with the `sql` filetype use the `snowflake_sql` parser
+([cosmicbuffalo/tree-sitter-snowflake-sql](https://github.com/cosmicbuffalo/tree-sitter-snowflake-sql))
+instead of nvim-treesitter's `sql` parser. It is a fork of the same grammar with Snowflake syntax
+added (stages, `QUALIFY`, `CREATE TASK`, scripting blocks and so on), so plain SQL still parses.
+nvim-treesitter does not ship it, so it is defined in `custom_parsers` in
+`lua/config/utils/treesitter.lua`, pinned to a commit.
+
+The grammar repo does not commit its generated parser, so installing it runs
+`tree-sitter generate` first. That takes about 20 seconds with tree-sitter 0.27.
+
+To bump the grammar, change `revision` in `custom_parsers` and run `:TSUpdate snowflake_sql`.
+
+To go back to the stock `sql` parser, add this to your personal config:
+
+```lua
+{
+  "nvim-treesitter/nvim-treesitter",
+  opts = function()
+    require("config.utils").treesitter.custom_parsers.snowflake_sql.filetypes = {}
+  end,
+},
+```
 
 ### Highlighting Configuration
 Current settings live in `lua/plugins/treesitter.lua`

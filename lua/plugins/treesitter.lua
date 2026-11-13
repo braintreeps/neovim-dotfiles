@@ -144,6 +144,7 @@ return {
             end
 
             -- setup treesitter
+            Utils.treesitter.setup_custom_parsers()
             TS.setup(opts)
             Utils.treesitter.get_installed(true) -- initialize the installed langs
 
