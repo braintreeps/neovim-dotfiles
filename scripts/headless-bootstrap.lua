@@ -11,6 +11,7 @@ if not ok then
     os.exit(1)
 end
 
+utils.setup_custom_parsers()
 local languages = utils.ensure_installed
 print("Installing " .. #languages .. " parsers...")
 

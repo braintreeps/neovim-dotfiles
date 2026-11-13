@@ -34,6 +34,7 @@ M.ensure_installed = {
     "python",
     "ruby",
     "rust",
+    "snowflake_sql",
     "sql",
     "ssh_config",
     "terraform",
@@ -44,6 +45,47 @@ M.ensure_installed = {
     "vimdoc",
     "yaml",
 }
+
+-- Parsers that nvim-treesitter does not ship. `filetypes` lists the filetypes the parser takes
+-- over from the default parser for that filetype.
+---@type table<string, { install_info: table, filetypes: string[] }>
+M.custom_parsers = {
+    -- Snowflake SQL, a fork of the general SQL grammar nvim-treesitter uses for `sql`. It is a
+    -- superset of that grammar, so it handles plain SQL too. The repo does not commit the
+    -- generated parser, so installing it runs `tree-sitter generate` (about 20 seconds with
+    -- tree-sitter 0.27). To bump it, change `revision` and run `:TSUpdate snowflake_sql`.
+    snowflake_sql = {
+        install_info = {
+            url = "https://github.com/cosmicbuffalo/tree-sitter-snowflake-sql",
+            revision = "f5ca85c9fd2b05cd1e2a9e37664859463a88db29", -- branch snowflake-grammar
+            generate = true,
+            generate_from_json = false, -- no src/grammar.json is committed either
+            queries = "queries",
+        },
+        filetypes = { "sql" },
+    },
+}
+
+-- Adds `custom_parsers` to nvim-treesitter's parser table. nvim-treesitter reloads that table, and
+-- fires `User TSUpdate`, before every install and update, so the entries are re-added from that
+-- event too. Also maps each parser's filetypes to it. Safe to call more than once.
+function M.setup_custom_parsers()
+    local function register()
+        local parsers = require("nvim-treesitter.parsers")
+        for lang, spec in pairs(M.custom_parsers) do
+            parsers[lang] = { install_info = spec.install_info }
+        end
+    end
+    vim.api.nvim_create_autocmd("User", {
+        group = vim.api.nvim_create_augroup("treesitter_custom_parsers", { clear = true }),
+        pattern = "TSUpdate",
+        callback = register,
+    })
+    register()
+    for lang, spec in pairs(M.custom_parsers) do
+        vim.treesitter.language.register(lang, spec.filetypes)
+    end
+end
 
 ---@param update boolean?
 function M.get_installed(update)
