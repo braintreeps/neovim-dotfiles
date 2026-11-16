@@ -181,8 +181,10 @@ return {
         "iamcco/markdown-preview.nvim",
         enabled = false, -- toggle this on if you're interested in using live markdown preview (requires some additional setup)
         cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-        build = "cd app && npm install", -- If this isn't working, try the below command manually
-        -- `cd ~/.local/share/nvim/lazy/markdown-preview.nvim/app && npm install`
+        build = function()
+            vim.fn["mkdp#util#install"]()
+        end, -- Downloads a prebuilt binary (no node_modules needed). If this isn't working, run `:call mkdp#util#install()` manually
+        -- To rebuild via lazy.nvim: `:Lazy build markdown-preview.nvim`
         init = function()
             vim.g.mkdp_filetypes = { "markdown" }
             vim.g.mkdp_browserfunc = "CopyToClipboard"

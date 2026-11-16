@@ -329,8 +329,8 @@ This cheatsheet is automatically generated. It includes all keymaps from:
 
 | Keymap | Mode | Description | Source |
 |--------|------|-------------|--------|
-| `<leader>gy` | `n` | Copy GitHub link | [`lua/plugins/utils.lua:219`](https://github.com/braintreeps/neovim-dotfiles/blob/main/lua/plugins/utils.lua#L219) |
-| `<leader>gY` | `n` | Copy GitHub Repo link | [`lua/plugins/utils.lua:235`](https://github.com/braintreeps/neovim-dotfiles/blob/main/lua/plugins/utils.lua#L235) |
+| `<leader>gy` | `n` | Copy GitHub link | [`lua/plugins/utils.lua:221`](https://github.com/braintreeps/neovim-dotfiles/blob/main/lua/plugins/utils.lua#L221) |
+| `<leader>gY` | `n` | Copy GitHub Repo link | [`lua/plugins/utils.lua:237`](https://github.com/braintreeps/neovim-dotfiles/blob/main/lua/plugins/utils.lua#L237) |
 
 ## Plugin: gitsigns.nvim
 
@@ -367,9 +367,9 @@ This cheatsheet is automatically generated. It includes all keymaps from:
 
 | Keymap | Mode | Description | Source |
 |--------|------|-------------|--------|
-| `<leader>mp` | `n` | Start Markdown Preview | [`lua/plugins/utils.lua:210`](https://github.com/braintreeps/neovim-dotfiles/blob/main/lua/plugins/utils.lua#L210) |
-| `<leader>ms` | `n` | Stop Markdown Preview | [`lua/plugins/utils.lua:211`](https://github.com/braintreeps/neovim-dotfiles/blob/main/lua/plugins/utils.lua#L211) |
-| `<leader>mt` | `n` | Toggle Markdown Preview | [`lua/plugins/utils.lua:212`](https://github.com/braintreeps/neovim-dotfiles/blob/main/lua/plugins/utils.lua#L212) |
+| `<leader>mp` | `n` | Start Markdown Preview | [`lua/plugins/utils.lua:212`](https://github.com/braintreeps/neovim-dotfiles/blob/main/lua/plugins/utils.lua#L212) |
+| `<leader>ms` | `n` | Stop Markdown Preview | [`lua/plugins/utils.lua:213`](https://github.com/braintreeps/neovim-dotfiles/blob/main/lua/plugins/utils.lua#L213) |
+| `<leader>mt` | `n` | Toggle Markdown Preview | [`lua/plugins/utils.lua:214`](https://github.com/braintreeps/neovim-dotfiles/blob/main/lua/plugins/utils.lua#L214) |
 
 ## Plugin: mason.nvim
 
