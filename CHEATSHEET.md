@@ -402,7 +402,7 @@ This cheatsheet is automatically generated. It includes all keymaps from:
 
 | Keymap | Mode | Description | Source |
 |--------|------|-------------|--------|
-| `<leader>ut` | `n` | Toggle Treesitter Context | [`lua/plugins/treesitter.lua:286`](https://github.com/braintreeps/neovim-dotfiles/blob/main/lua/plugins/treesitter.lua#L286) |
+| `<leader>ut` | `n` | Toggle Treesitter Context | [`lua/plugins/treesitter.lua:287`](https://github.com/braintreeps/neovim-dotfiles/blob/main/lua/plugins/treesitter.lua#L287) |
 
 ## Plugin: resession.nvim
 
