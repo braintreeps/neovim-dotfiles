@@ -56,8 +56,8 @@ M.custom_parsers = {
     -- tree-sitter 0.27). To bump it, change `revision` and run `:TSUpdate snowflake_sql`.
     snowflake_sql = {
         install_info = {
-            url = "https://github.com/cosmicbuffalo/tree-sitter-snowflake-sql",
-            revision = "f5ca85c9fd2b05cd1e2a9e37664859463a88db29", -- branch snowflake-grammar
+            url = "https://github.com/hectron/tree-sitter-snowflake-sql",
+            revision = "5bdfdce1b960de39a007531e5efdf09f64355005", -- main
             generate = true,
             generate_from_json = false, -- no src/grammar.json is committed either
             queries = "queries",

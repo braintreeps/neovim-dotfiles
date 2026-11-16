@@ -95,7 +95,7 @@ Popular parsers include:
 ### Snowflake SQL
 
 Buffers with the `sql` filetype use the `snowflake_sql` parser
-([cosmicbuffalo/tree-sitter-snowflake-sql](https://github.com/cosmicbuffalo/tree-sitter-snowflake-sql))
+([hectron/tree-sitter-snowflake-sql](https://github.com/hectron/tree-sitter-snowflake-sql))
 instead of nvim-treesitter's `sql` parser. It is a fork of the same grammar with Snowflake syntax
 added (stages, `QUALIFY`, `CREATE TASK`, scripting blocks and so on), so plain SQL still parses.
 nvim-treesitter does not ship it, so it is defined in `custom_parsers` in
