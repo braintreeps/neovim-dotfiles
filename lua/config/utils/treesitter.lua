@@ -50,8 +50,9 @@ M.ensure_installed = {
 -- over from the default parser for that filetype.
 ---@type table<string, { install_info: table, filetypes: string[] }>
 M.custom_parsers = {
-    -- Snowflake SQL, a fork of the general SQL grammar nvim-treesitter uses for `sql`. It is a
-    -- superset of that grammar, so it handles plain SQL too. The repo does not commit the
+    -- Snowflake SQL, a fork of the general SQL grammar nvim-treesitter uses for `sql`. It targets
+    -- Snowflake only; SQL for other databases mostly parses, but dialect-specific syntax may not.
+    -- The repo does not commit the
     -- generated parser, so installing it runs `tree-sitter generate` (about 20 seconds with
     -- tree-sitter 0.27). To bump it, change `revision` and run `:TSUpdate snowflake_sql`.
     snowflake_sql = {
