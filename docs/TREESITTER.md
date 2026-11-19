@@ -118,7 +118,9 @@ To go back to the stock `sql` parser, add this to your personal config:
 ```
 
 ### Highlighting Configuration
-Current settings live in `lua/plugins/treesitter.lua`
+Current settings live in `lua/plugins/treesitter.lua`.
+
+Treesitter highlighting turns off for files over 150 KB, because large files in some languages (SQL, for example) parse slowly. Terraform and HCL buffers keep it on up to 512 KB. To change a language's limit, edit `treesitter_highlight_max_file_size_by_lang` in that file.
 
 ### Text Objects Configuration
 Treesitter provides intelligent text objects for selecting code structures:
