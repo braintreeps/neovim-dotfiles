@@ -96,8 +96,11 @@ Popular parsers include:
 
 Buffers with the `sql` filetype use the `snowflake_sql` parser
 ([hectron/tree-sitter-snowflake-sql](https://github.com/hectron/tree-sitter-snowflake-sql))
-instead of nvim-treesitter's `sql` parser. It is a fork of the same grammar with Snowflake syntax
-added (stages, `QUALIFY`, `CREATE TASK`, scripting blocks and so on), so plain SQL still parses.
+instead of nvim-treesitter's `sql` parser. It is a fork of the same grammar that targets Snowflake
+(stages, `QUALIFY`, `CREATE TASK`, scripting blocks and so on). Upstream removed Postgres, MySQL,
+T-SQL and Hive syntax, so it is not a superset of the stock grammar. SQL written for other databases
+still mostly parses, with error rates about the same as the stock grammar, but dialect-specific
+syntax (for example Postgres `RETURNING` or MySQL `ON DUPLICATE KEY`) may not.
 nvim-treesitter does not ship it, so it is defined in `custom_parsers` in
 `lua/config/utils/treesitter.lua`, pinned to a commit.
 

@@ -32,6 +32,7 @@ return {
             formatters_by_ft = {
                 sql = { "sqlfluff" },
                 lua = { "stylua" },
+                python = { "ruff_organize_imports", "ruff_format" },
                 go = { "goimports", "gofumpt" },
                 javascript = { "prettier" },
                 javascriptreact = { "prettier" },
