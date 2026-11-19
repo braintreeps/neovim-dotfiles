@@ -19,7 +19,7 @@ This config comes pre-configured with LSP support for:
 
 - **Bash/Shell scripts** (`bashls`)
 - **Go** (`gopls`)
-- **Java** (`jdtls`, started by nvim-jdtls; the Mason package is installed on first use)
+- **Java** (`jdtls`, started by nvim-jdtls; the Mason package is installed on first use. It needs JDK 25 from mise to run: `mise install java@25`. Projects can still target older Java versions)
 - **Lua** (`lua_ls`)
 - **Python** (`basedpyright`)
 - **Ruby** (`ruby_lsp`, `rubocop`)

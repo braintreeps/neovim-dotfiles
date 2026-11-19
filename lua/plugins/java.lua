@@ -21,12 +21,23 @@ return {
                 return
             end
             local jvmArg = "-javaagent:" .. jdtls_dir .. "lombok.jar"
-            local server_java = java_executable("25") or java_executable("21")
+            -- Mason only offers the latest jdtls, and current releases refuse to start on JDK 21.
+            local server_java = java_executable("25")
+            if not server_java then
+                vim.schedule(function()
+                    vim.notify(
+                        "jdtls needs JDK 25 to run, and none was found through mise.\n"
+                            .. "Install it with `mise install java@25` and reopen the file.\n"
+                            .. "Projects can still target older Java versions.",
+                        vim.log.levels.WARN,
+                        { title = "jdtls" }
+                    )
+                end)
+                return
+            end
 
             local cmd = { jdtls_dir .. "bin/jdtls", "--jvm-arg=" .. jvmArg }
-            if server_java then
-                table.insert(cmd, 2, "--java-executable=" .. server_java)
-            end
+            table.insert(cmd, 2, "--java-executable=" .. server_java)
 
             local runtimes = {}
             for _, version in ipairs({ "11", "17", "21", "25" }) do
