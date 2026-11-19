@@ -19,6 +19,7 @@ This config comes pre-configured with LSP support for:
 
 - **Bash/Shell scripts** (`bashls`)
 - **Go** (`gopls`)
+- **Java** (`jdtls`, started by nvim-jdtls; the Mason package is installed on first use)
 - **Lua** (`lua_ls`)
 - **Python** (`basedpyright`)
 - **Ruby** (`ruby_lsp`, `rubocop`)

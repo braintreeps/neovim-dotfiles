@@ -134,6 +134,9 @@ return {
                 terraform = {
                     servers = { "terraformls" },
                 },
+                java = {
+                    tools = { "jdtls" },
+                },
                 python = {
                     servers = { "basedpyright" },
                     tools = { "ruff" },

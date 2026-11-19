@@ -375,7 +375,7 @@ This cheatsheet is automatically generated. It includes all keymaps from:
 
 | Keymap | Mode | Description | Source |
 |--------|------|-------------|--------|
-| `<leader>cm` | `n` | Mason | [`lua/plugins/lsp.lua:225`](https://github.com/braintreeps/neovim-dotfiles/blob/main/lua/plugins/lsp.lua#L225) |
+| `<leader>cm` | `n` | Mason | [`lua/plugins/lsp.lua:228`](https://github.com/braintreeps/neovim-dotfiles/blob/main/lua/plugins/lsp.lua#L228) |
 
 ## Plugin: mini.bufremove
 
