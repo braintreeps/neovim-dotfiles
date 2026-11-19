@@ -106,6 +106,25 @@ return {
                         client.server_capabilities.semanticTokensProvider = nil
                     end,
                 },
+                tflint = {
+                    root_dir = function(bufnr, on_dir)
+                        local root = vim.fs.root(bufnr, ".tflint.hcl")
+                        if root then
+                            on_dir(root)
+                        end
+                    end,
+                },
+                kotlin_lsp = {
+                    mason = "kotlin-lsp",
+                    cmd = function(dispatchers)
+                        local java_home = Utils.lsp.java_home({ "21", "17" })
+                        return vim.lsp.rpc.start(
+                            { "intellij-server", "--stdio" },
+                            dispatchers,
+                            java_home and { env = { JAVA_HOME = java_home } } or nil
+                        )
+                    end,
+                },
                 yamlls = { mason = "yaml-language-server" },
                 ts_ls = { mason = "typescript-language-server" },
             },
@@ -132,7 +151,10 @@ return {
                     tools = { "shfmt" },
                 },
                 terraform = {
-                    servers = { "terraformls" },
+                    servers = { "terraformls", "tflint" },
+                },
+                kotlin = {
+                    servers = { "kotlin_lsp" },
                 },
                 python = {
                     servers = { "basedpyright" },

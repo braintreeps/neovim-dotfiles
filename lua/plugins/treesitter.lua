@@ -4,6 +4,13 @@ local Utils = require("config.utils")
 -- TODO expose this as a configurable value
 local treesitter_highlight_max_file_size = 150 -- Kilobytes
 
+-- Per-language overrides of the limit above. Terraform parses a 500 KB file in well under a second.
+local treesitter_highlight_max_file_size_by_lang = {
+    terraform = 512,
+    hcl = 512,
+    ["terraform-vars"] = 512,
+}
+
 -- Legacy syntax (needed for ruby indent's synID) is slow on big files; cap it here.
 local legacy_syntax_max_file_size = 50 -- Kilobytes
 
@@ -44,7 +51,9 @@ return {
                     if lang == "ruby" then
                         return false
                     end
-                    local max_filesize = treesitter_highlight_max_file_size * 1024 -- convert actual kilobytes
+                    local max_kilobytes = treesitter_highlight_max_file_size_by_lang[lang]
+                        or treesitter_highlight_max_file_size
+                    local max_filesize = max_kilobytes * 1024 -- convert actual kilobytes
                     local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buffer))
 
                     if ok and stats and stats.size > max_filesize then
