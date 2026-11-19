@@ -29,6 +29,8 @@ This config comes pre-configured with LSP support for:
 
 The source of truth is `server_defs` and `filetype_tooling` in `lua/plugins/lsp.lua`.
 
+SQL has no language server. In SQL buffers, `gd` searches the project for the `CREATE` statement that defines the name under the cursor, and lists the matches in the quickfix window when there are several.
+
 ## How It Works
 
 ### Automatic Installation
