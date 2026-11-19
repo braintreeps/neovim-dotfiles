@@ -42,7 +42,12 @@ return {
             },
             formatters = {
                 sqlfluff = {
-                    args = { "fix", "--force", "-" },
+                    -- Prefer a project's own sqlfluff venv (a `sqlfluff-env/` directory, used by projects
+                    -- that pin the sqlfluff version and rule plugins their CI uses), then sqlfluff on PATH.
+                    command = function(self, ctx)
+                        local find = require("conform.util").find_executable
+                        return find({ "sqlfluff-env/bin/sqlfluff" }, "sqlfluff")(self, ctx)
+                    end,
                 },
                 terraform = {
                     command = "terraform",
