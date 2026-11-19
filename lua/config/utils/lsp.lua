@@ -64,6 +64,26 @@ function M.ensure_for_filetype(ft, lsp_opts)
     end, 100)
 end
 
+local java_homes = {}
+
+--- Returns the home of the first mise-managed JDK among `versions`, or nil when mise has none.
+---@param versions string[]
+---@return string?
+function M.java_home(versions)
+    for _, version in ipairs(versions) do
+        if java_homes[version] == nil then
+            local ok, result = pcall(function()
+                return vim.system({ "mise", "where", "java@" .. version }, { text = true }):wait()
+            end)
+            local home = ok and result.code == 0 and vim.trim(result.stdout) or ""
+            java_homes[version] = home ~= "" and home or false
+        end
+        if java_homes[version] then
+            return java_homes[version]
+        end
+    end
+end
+
 -- stylua: ignore
 local function on_attach(_client, bufnr, opts)
     --- Sets keymaps with default options

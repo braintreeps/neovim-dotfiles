@@ -19,10 +19,11 @@ This config comes pre-configured with LSP support for:
 
 - **Bash/Shell scripts** (`bashls`)
 - **Go** (`gopls`)
+- **Kotlin** (`kotlin_lsp`, needs a JDK 17 or newer; a mise-managed JDK is found automatically)
 - **Lua** (`lua_ls`)
 - **Python** (`basedpyright`)
 - **Ruby** (`ruby_lsp`, `rubocop`)
-- **Terraform** (`terraformls`)
+- **Terraform** (`terraformls`, and `tflint` in projects that have a `.tflint.hcl`)
 - **TypeScript/JavaScript** (`ts_ls`)
 - **YAML** (`yamlls`)
 
